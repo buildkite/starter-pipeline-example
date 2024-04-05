@@ -1,6 +1,6 @@
 steps:
   - command: exit -1
-    key: 'exit'
+    key: 'exittest'
 
   - wait: ~
     continue_on_failure: true
