@@ -15,5 +15,5 @@ steps:
             notify:
               - github_commit_status:
                   context: "my custom status"
-      YAML
-      fi
+    YAML
+    fi
