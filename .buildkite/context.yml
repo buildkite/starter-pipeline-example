@@ -3,7 +3,11 @@ steps:
   key: step1
   command: echo "your script"
 
+- wait: ~
+  continue_on_failure: true
+
 - label: " notify?"
+  depends_on: step1
   command: |
     if [ $$(buildkite-agent step get "outcome" --step "step1") == "passed" ]; then
         cat <<- YAML | buildkite-agent pipeline upload 
