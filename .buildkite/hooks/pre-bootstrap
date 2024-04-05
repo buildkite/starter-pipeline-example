@@ -1,3 +1,0 @@
-#!/bin/bash
-set -eu -o pipefail
-echo "Hello from repo bootstrap hook"

@@ -1,0 +1,6 @@
+steps:
+- label: " Script"
+    command: echo "hello"
+    notify:
+      - github_commit_status:
+          context: "my custom status"
