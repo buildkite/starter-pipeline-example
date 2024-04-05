@@ -1,6 +1,6 @@
 steps:
-  - command: echo "hello"
-    key: 'step1'
+  - command: exit -1
+    key: 'exit'
 
   - wait: ~
     continue_on_failure: true
@@ -15,7 +15,7 @@ steps:
              notify:
                - slack:
                    channels:
-                     - "#priya-test"
+                     - "#notification-test"
                    message: "Step1 has passed. <@U06PNF3JFHR> "
       YAML
       fi
