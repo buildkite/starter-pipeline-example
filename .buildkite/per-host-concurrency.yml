@@ -1,0 +1,19 @@
+---
+steps:
+  - command: echo "Running unit tests"
+    key: unit-tests
+    agents:
+      queue: default
+  - command: echo "--> Start of concurrency gate"
+    concurrency_group: matchingApi/lint-test-${BUILDKITE_AGENT_NAME}
+    concurrency: 1
+    key: start-gate
+    depends_on: unit-tests
+    agents:
+      queue: default
+  - wait
+  - command: echo "Running deployment to staging environment"
+    key: stage-deploy
+    depends_on: start-gate
+    agents:
+      queue: default
