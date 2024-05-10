@@ -14,5 +14,7 @@ steps:
     blocked_state: failed
   
   - label: 3rd step
-    depends_on: 3
+    depends_on:
+    - 3
+    - 4
     command: echo "hi"
