@@ -16,5 +16,4 @@ steps:
   - label: 3rd step
     depends_on:
     - 3
-    - 4
     command: echo "hi"
