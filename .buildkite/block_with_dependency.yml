@@ -5,7 +5,7 @@ steps:
 
   - label: 2st step
     key: 2
-    command: exit -1
+    command: echo "test"
   
   - block: "Release"
     key: 3
