@@ -1,0 +1,21 @@
+steps:
+- label: Deploy to testing
+  command: exit -1
+  key: "step1"
+
+- wait: ~
+  continue_on_failure: true
+  
+- label: Failed or passed?
+  command: |
+      if [ $$(buildkite-agent step get "outcome" --step "step1") != "passed" ]; then
+         cat <<- YAML | buildkite-agent pipeline upload 
+         steps:
+            - block: ":rocket: Release"
+              branches: main
+      YAML
+      fi
+
+- label: Done
+  depends_on: "step1"
+  command: echo "done"

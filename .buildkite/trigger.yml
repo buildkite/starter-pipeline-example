@@ -1,0 +1,10 @@
+- label: Testing triggers
+  command: echo "hello"
+
+- trigger: "step-notification"
+  label: ":rocket: Deploy event trigger"
+  branches: main
+  build:
+    meta_data:
+      release-version: "1.1"
+

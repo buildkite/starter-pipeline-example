@@ -1,0 +1,98 @@
+_bk;t=1712188343204~~~ Job API
+_bk;t=1712188343204Server listening on /var/lib/buildkite-agent/.buildkite-agent/sockets/job-api/34069-46898.sock
+_bk;t=1712188343204~~~ Running global environment hook
+_bk;t=1712188343204[90m$[0m /etc/buildkite-agent/hooks/environment
+_bk;t=1712188343224~~~ :earth_asia: Setting up environment variables
+_bk;t=1712188343224export BUILDKITE_AGENTS_PER_INSTANCE="1"
+_bk;t=1712188343224export BUILDKITE_TERMINATE_INSTANCE_AFTER_JOB="false"
+_bk;t=1712188343224export BUILDKITE_ECR_POLICY="none"
+_bk;t=1712188343224export BUILDKITE_SECRETS_BUCKET="buildkite-managedsecretsbucket-250wjccs5ebl"
+_bk;t=1712188343224export BUILDKITE_SECRETS_BUCKET_REGION="ap-southeast-2"
+_bk;t=1712188343224export BUILDKITE_STACK_NAME="buildkite"
+_bk;t=1712188343224export BUILDKITE_STACK_VERSION="v6.17.0"
+_bk;t=1712188343224export BUILDKITE_DOCKER_EXPERIMENTAL="false"
+_bk;t=1712188343224export DOCKER_VERSION="25.0.3"
+_bk;t=1712188343224export PLUGINS_ENABLED="secrets ecr docker-login"
+_bk;t=1712188343225export AWS_DEFAULT_REGION="ap-southeast-2"
+_bk;t=1712188343225export AWS_REGION="ap-southeast-2"
+_bk;t=1712188343227~~~ :llama: Setting up elastic stack environment (v6.17.0)
+_bk;t=1712188343227Checking docker
+_bk;t=1712188343243CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+_bk;t=1712188343244Checking disk space
+_bk;t=1712188343278Disk space free: 246G
+_bk;t=1712188343283Inodes free: 125M
+_bk;t=1712188343283Configuring built-in plugins
+_bk;t=1712188343284Secrets plugin enabled
+_bk;t=1712188343284ECR plugin enabled
+_bk;t=1712188343284Docker-login plugin enabled
+_bk;t=1712188343290~~~ Downloading secrets from :s3: buildkite-managedsecretsbucket-250wjccs5ebl
+_bk;t=1712188343373Checking S3 for SSH keys:
+_bk;t=1712188343373- freeze-test/private_ssh_key
+_bk;t=1712188343373- freeze-test/id_rsa_github
+_bk;t=1712188343373- private_ssh_key
+_bk;t=1712188343373- id_rsa_github
+_bk;t=1712188343373Checking S3 for environment files:
+_bk;t=1712188343373- env
+_bk;t=1712188343373- environment
+_bk;t=1712188343373- freeze-test/env
+_bk;t=1712188343373- freeze-test/environment
+_bk;t=1712188343373Checking S3 for git credentials:
+_bk;t=1712188343373- git-credentials
+_bk;t=1712188343373- freeze-test/git-credentials
+_bk;t=1712188343429Started ephemeral ssh-agent (pid 34116)
+_bk;t=1712188343429Loading buildkite-managedsecretsbucket-250wjccs5ebl/private_ssh_key (3414 bytes) into ssh-agent (pid 34116)
+_bk;t=1712188343443Evaluating 135 bytes of env
+_bk;t=1712188343443Agent pid 34116
+_bk;t=1712188343443~~~ Fixing permissions for 'buildkite-i-0e92da30b4e084116-1/priya/freeze-test'...
+_bk;t=1712188343700
+_bk;t=1712188343720[90m# SSH_AUTH_SOCK added[0m
+_bk;t=1712188343720[90m# DOCKER_CONFIG added[0m
+_bk;t=1712188343720[90m# BUILDKITE_SECRETS_BUCKET added[0m
+_bk;t=1712188343720[90m# SSH_AGENT_PID added[0m
+_bk;t=1712188343720[90m# ECR_PLUGIN_ENABLED added[0m
+_bk;t=1712188343720[90m# AWS_DEFAULT_REGION added[0m
+_bk;t=1712188343720[90m# BUILDKITE_STACK_NAME added[0m
+_bk;t=1712188343720[90m# BUILDKITE_PLUGIN_S3_SECRETS_REGION added[0m
+_bk;t=1712188343720[90m# BUILDKITE_AGENTS_PER_INSTANCE added[0m
+_bk;t=1712188343720[90m# BUILDKITE_PLUGIN_S3_SECRETS_BUCKET added[0m
+_bk;t=1712188343720[90m# BUILDKITE_DOCKER_CONFIG_TEMP_DIRECTORY added[0m
+_bk;t=1712188343720[90m# DOCKER_VERSION added[0m
+_bk;t=1712188343720[90m# BUILDKITE_SECRETS_BUCKET_REGION added[0m
+_bk;t=1712188343720[90m# BUILDKITE_DOCKER_EXPERIMENTAL added[0m
+_bk;t=1712188343720[90m# AWS_REGION added[0m
+_bk;t=1712188343720[90m# BUILDKITE_ECR_POLICY added[0m
+_bk;t=1712188343720[90m# PLUGINS_ENABLED added[0m
+_bk;t=1712188343720[90m# DOCKER_LOGIN_PLUGIN_ENABLED added[0m
+_bk;t=1712188343720[90m# BUILDKITE_STACK_VERSION added[0m
+_bk;t=1712188343720[90m# SECRETS_PLUGIN_ENABLED added[0m
+_bk;t=1712188343720~~~ Preparing working directory
+_bk;t=1712188343720[90m$[0m cd /var/lib/buildkite-agent/builds/buildkite-i-0e92da30b4e084116-1/priya/freeze-test
+_bk;t=1712188343726[90m# Host "github.com" already in list of known hosts at "/var/lib/buildkite-agent/.ssh/known_hosts"[0m
+_bk;t=1712188343728[90m$[0m git clean -ffxdq
+_bk;t=1712188343730[90m$[0m git fetch -v --prune -- origin 9d061a36efc4759f04d89082a3e3641d6c0a884b
+_bk;t=1712188346125remote: Enumerating objects: 15, done.[K_bk;t=1712188346125
+_bk;t=1712188346125remote: Counting objects:   6% (1/15)[K_bk;t=1712188346125remote: Counting objects:  13% (2/15)[K_bk;t=1712188346125remote: Counting objects:  20% (3/15)[K_bk;t=1712188346125remote: Counting objects:  26% (4/15)[K_bk;t=1712188346125remote: Counting objects:  33% (5/15)[K_bk;t=1712188346125remote: Counting objects:  40% (6/15)[K_bk;t=1712188346125remote: Counting objects:  46% (7/15)[K_bk;t=1712188346126remote: Counting objects:  53% (8/15)[K_bk;t=1712188346126remote: Counting objects:  60% (9/15)[K_bk;t=1712188346126remote: Counting objects:  66% (10/15)[K_bk;t=1712188346126remote: Counting objects:  73% (11/15)[K_bk;t=1712188346126remote: Counting objects:  80% (12/15)[K_bk;t=1712188346126remote: Counting objects:  86% (13/15)[K_bk;t=1712188346126remote: Counting objects:  93% (14/15)[K_bk;t=1712188346126remote: Counting objects: 100% (15/15)[K_bk;t=1712188346126remote: Counting objects: 100% (15/15), done.[K_bk;t=1712188346126
+_bk;t=1712188346126remote: Compressing objects:  16% (1/6)[K_bk;t=1712188346126remote: Compressing objects:  33% (2/6)[K_bk;t=1712188346126remote: Compressing objects:  50% (3/6)[K_bk;t=1712188346126remote: Compressing objects:  66% (4/6)[K_bk;t=1712188346126remote: Compressing objects:  83% (5/6)[K_bk;t=1712188346126remote: Compressing objects: 100% (6/6)[K_bk;t=1712188346126remote: Compressing objects: 100% (6/6), done.[K_bk;t=1712188346126
+_bk;t=1712188346126remote: Total 12 (delta 6), reused 12 (delta 6), pack-reused 0[K_bk;t=1712188346126
+_bk;t=1712188346128Unpacking objects:   8% (1/12)Unpacking objects:  16% (2/12)Unpacking objects:  25% (3/12)Unpacking objects:  33% (4/12)Unpacking objects:  41% (5/12)Unpacking objects:  50% (6/12)Unpacking objects:  58% (7/12)Unpacking objects:  66% (8/12)Unpacking objects:  75% (9/12)Unpacking objects:  83% (10/12)Unpacking objects:  91% (11/12)Unpacking objects: 100% (12/12)Unpacking objects: 100% (12/12), 1.27 KiB | 651.00 KiB/s, done.
+_bk;t=1712188346320From github.com:PriyaSudip/starter
+_bk;t=1712188346320 * branch            9d061a36efc4759f04d89082a3e3641d6c0a884b -> FETCH_HEAD
+_bk;t=1712188346330[90m$[0m git checkout -f 9d061a36efc4759f04d89082a3e3641d6c0a884b
+_bk;t=1712188346336Previous HEAD position was 3fd8ab6 include annotation
+_bk;t=1712188346336HEAD is now at 9d061a3 include annotation
+_bk;t=1712188346337[90m# Cleaning again to catch any post-checkout changes[0m
+_bk;t=1712188346337[90m$[0m git clean -ffxdq
+_bk;t=1712188346343[90m# Checking to see if Git data needs to be sent to Buildkite[0m
+_bk;t=1712188346343[90m$[0m buildkite-agent meta-data exists buildkite:git:commit
+_bk;t=1712188346898~~~ Running global pre-command hook
+_bk;t=1712188346898[90m$[0m /etc/buildkite-agent/hooks/pre-command
+_bk;t=1712188346935~~~ Running commands
+_bk;t=1712188346935[90m$[0m echo "testing freeze true"
+_bk;t=1712188346938testing freeze true
+_bk;t=1712188346939~~~ Running global pre-exit hook
+_bk;t=1712188346939[90m$[0m /etc/buildkite-agent/hooks/pre-exit
+_bk;t=1712188346968~~~ Stopping ssh-agent 34116
+_bk;t=1712188346972Agent pid 34116 killed
+_bk;t=1712188346992[90m# SSH_AGENT_PID removed[0m
+_bk;t=1712188346992[90m# SSH_AUTH_SOCK removed[0m
+_bk;t=1712188346992[90m# Successfully shut down Job API server[0m

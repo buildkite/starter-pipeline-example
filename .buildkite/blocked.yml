@@ -1,0 +1,16 @@
+steps:
+- label: Deploy to testing
+  command: echo "hello"
+
+- label: Deploy to staging
+  command: echo "hello"
+
+- block: ":rocket: Release"
+  branches: main
+
+- label: Deploy to production
+  command: echo "hello"
+
+- label: Deploy to live
+  command: echo "reproduce"
+

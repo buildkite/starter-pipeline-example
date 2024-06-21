@@ -1,0 +1,20 @@
+steps:
+- label: "Script"
+  key: step1
+  command: echo "your script"
+
+- wait: ~
+  continue_on_failure: true
+
+- label: " notify?"
+  depends_on: step1
+  command: |
+    if [ $$(buildkite-agent step get "outcome" --step "step1") == "passed" ]; then
+        cat <<- YAML | buildkite-agent pipeline upload 
+        steps:
+          - label: "Notify slack about soft passed step"
+            notify:
+              - github_commit_status:
+                  context: "my custom status"
+    YAML
+    fi
