@@ -1,6 +1,4 @@
 steps:
   - label: "test"
     key: "one"
-    command: echo "4ede" | buildkite-agent meta-data set "dd_tags.team" "priya_pipeline"
-
-
+    command: echo "4edex" | buildkite-agent meta-data set "dd_tags.team" "priya_pipeline"
