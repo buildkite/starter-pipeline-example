@@ -1,0 +1,4 @@
+steps:
+  - command: "echo parallel test"
+    label: "Test %n"
+    parallelism: 5

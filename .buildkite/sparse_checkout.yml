@@ -1,0 +1,9 @@
+steps:
+  - label: Pipeline upload
+    command: echo "runnign sparse"
+    key: "step1"
+    plugins:
+      - ssh://git@github.com/buildkite-plugins/sparse-checkout-buildkite-plugin.git:v0.01:
+          paths: .buildkite
+  - trigger: "test-md-git-commit"
+    label: "testing triggering"

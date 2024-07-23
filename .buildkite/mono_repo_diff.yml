@@ -1,0 +1,15 @@
+steps:
+  - label: "Triggering pipelines"
+    plugins:
+      - monorepo-diff#v1.0.1:
+          diff: "git diff --name-only HEAD~1"
+          watch:
+            - path: src/
+              config:
+                command: "echo Make Changes cmd with dollar"
+            - path:
+                - src/
+              config:
+                trigger: "freeze"
+                label: ":trigger"
+

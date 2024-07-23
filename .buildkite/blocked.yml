@@ -1,0 +1,22 @@
+
+steps:
+
+  - label: Deploy to testing
+    command: echo "hello"
+    agents:
+      multi: 'yes'
+
+  - label: Deploy to staging
+    command: echo "hello"
+    agents:
+      multi: 'yes'
+
+  - label: Deploy to production
+    command: echo "hello"
+    agents:
+      multi: 'yes'
+
+  - label: Deploy to live
+    agents:
+      multi: 'yes'
+

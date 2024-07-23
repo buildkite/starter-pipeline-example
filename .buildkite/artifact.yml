@@ -1,0 +1,8 @@
+steps: 
+  - label: Upload
+    key: step1
+    command: buildkite-agent artifact upload "./upload.txt"
+
+  - label: Download
+    depends_on: step1
+    command: buildkite-agent artifact download "*upload.txt" .

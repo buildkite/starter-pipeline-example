@@ -1,0 +1,21 @@
+steps:
+  - command: echo "hello"
+    key: 'step1'
+
+  - wait: ~
+    continue_on_failure: true
+
+  - label: "Run only if above pass"
+    command: |
+      if [ $$(buildkite-agent step get "outcome" --step "step1") == "passed" ]; then
+         cat <<- YAML | buildkite-agent pipeline upload 
+         steps:
+           - label: "Notify slack about soft passed step"
+             command: echo "Notifying slack about the passed step"
+             notify:
+               - slack:
+                   channels:
+                     - "#priya-test"
+                   message: "Step1 has passed. <@U06PNF3JFHR> "
+      YAML
+      fi

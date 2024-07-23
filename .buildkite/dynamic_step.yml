@@ -1,0 +1,5 @@
+- block: block step 
+  label: ":robot_face: DO NOT manually unblock. Waiting for external service to unblock"
+  key: block-step
+  depends_on: []
+  blocked_state: running
