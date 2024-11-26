@@ -3,7 +3,7 @@ steps:
 
 - key: dd_key_test_one
   label: step_1
-  command: echo "test for commit and PR!!!"
+  command: echo "test for commit and PR!!!1"
   key: one
   env:
     $TEST_ENV_CMD: "True"
