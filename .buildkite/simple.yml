@@ -27,3 +27,4 @@ steps:
   env:
     API: "true"
     name: "three"
+    flagged: "yes"
