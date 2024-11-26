@@ -1,4 +1,6 @@
 ---
+env: 
+  MYVAR: "SomeValue"
 steps:
 
 - key: dd_key_test_one
