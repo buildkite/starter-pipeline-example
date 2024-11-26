@@ -6,7 +6,8 @@ steps:
   command: echo "build branch on merge to PR without filter"
   key: one
   env:
-    $TEST_ENV_CMD: "True"
+    API: "true"
+    name: "one"
   notify:
     - if: "build.branch == \"main\" && build.state != 'failing' && build.state != 'failed' && build.state != 'canceling' && build.state != 'canceled'"
       slack:
@@ -17,6 +18,12 @@ steps:
   depends_on: 
   label: step_2
   command: buildkite-agent meta-data set "dd_tags.key" dd_key_test_two
+  env:
+    API: "false"
+    name: "two"
 - key: dd_key_test_three
   label: step_3
   command: buildkite-agent meta-data set "dd_tags.key" dd_key_test_three
+  env:
+    API: "true"
+    name: "three"
