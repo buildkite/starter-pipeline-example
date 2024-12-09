@@ -1,0 +1,8 @@
+steps:
+  - label: "test str"
+    command: echo "hello"
+  
+  - label: "test env"
+    command: echo "${build}"
+  
+  

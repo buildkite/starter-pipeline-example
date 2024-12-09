@@ -1,0 +1,37 @@
+---
+env:
+  VERSION: 4992-944dd165
+steps:
+- label: upload files
+  command: |
+    set -x
+    ls -alh
+    mkdir -p build/osie-4992-944dd165/
+    mv *x86_64* build/osie-4992-944dd165/
+    ls -alh build/osie-4992-944dd165/
+    rm build/osie-4992-944dd165/*.mk
+    /usr/bin/buildkite-agent artifact upload "build/osie-4992-944dd165/*"
+- wait
+- label: ":qemu:\U0001F131\U0001F138\U0001F13E\U0001F142 x86_64"
+  command: |
+    set -x
+    pwd
+    rm -f *x86_64*
+    ls -alh || :
+    ls -alhR build || :
+    /app/vm.sh
+  plugins:
+  - github.com/buildkite-plugins/artifacts-buildkite-plugin#v1.9.3:
+      download:
+      - build/osie-4992-944dd165/*x86_64*
+  - github.com/buildkite-plugins/docker-buildkite-plugin#v5.11.0:
+      image: quay.io/equinixmetal/osie-vm-tests:33-1be79cba
+      volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "./build/osie-:/workdir"
+      workdir: "/workdir/build/osie-4992-944dd165"
+      privileged: true
+      skip-checkout: true
+      mount-checkout: false
+      propagate-environment: true
+  timeout_in_minutes: 60

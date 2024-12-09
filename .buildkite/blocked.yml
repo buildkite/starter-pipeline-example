@@ -1,0 +1,21 @@
+
+steps:
+  - wait:
+  - input: "Information please"
+    key: "information"
+    fields:
+      - text: "What is the date today?"
+        key: "todays-date"
+
+  - label: ":rocket:"
+    command: echo "hi"
+    depends_on: "information"
+  
+  - block: "Release"
+    key: "release"
+
+  - label: ":rocket:"
+    command: echo "hi"
+    depends_on: "release"
+
+

@@ -1,0 +1,10 @@
+  - label: annotate
+      plugins:
+        - bugcrowd/test-summary#v1.8.0:
+            inputs:
+              - label: rspec
+                artifact_path: artifacts/rspec*
+                type: junit
+            formatter:
+              type: details
+            context: test-summary

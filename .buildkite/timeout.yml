@@ -1,0 +1,4 @@
+steps:
+  - name: ":go::robot_face: Lint"
+    timeout_in_minutes: 1
+    command: ./src/timeout_sig.sh

@@ -1,0 +1,18 @@
+- command:   ./src/lable.sh
+  label: ':rocket: Deploy production'
+  key: concurrent
+  concurrency: 6
+  parallelism: 2
+  concurrency_group: deploy
+  env:
+    FILENAME: "deploy_production"
+    concurrency_token: test-deploy_production
+
+- command:  echo "anoth one"
+  key: deploy_staging
+  
+  label: echo "$buildkite-agent meta-data get "available""
+  concurrency: 6
+  concurrency_group: deploy
+  env:
+    concurrency_token: $BUILDKITE_PARALLEL_JOB-$BUILDKITE_STEP_KEY

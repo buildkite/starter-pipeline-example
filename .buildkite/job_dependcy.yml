@@ -1,0 +1,10 @@
+---
+steps:
+  - command: echo "$(buildkite-agent step get "label" --step "step-b")"
+    label: "Step A"
+    key: step-a
+    depends_on: step-b
+
+  - command: echo "step b"
+    label: "Step B"
+    key: step-b

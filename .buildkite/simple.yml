@@ -1,0 +1,31 @@
+---
+env: 
+  MYVAR: "SomeValue"
+steps:
+
+- key: dd_key_test_one
+  label: step_1
+  command: echo "build branch on merge to PR without filter"
+  key: one
+  env:
+    API: "true"
+    name: "one"
+  notify:
+    - if: "build.branch == \"main\" && build.state != 'failing' && build.state != 'failed' && build.state != 'canceling' && build.state != 'canceled'"
+      slack:
+        message: ":large_green_circle: [data] Production Deploy Starting"
+        channels:
+        - "#data-test"
+- key: dd_key_test_two
+  depends_on: 
+  label: step_2
+  command: buildkite-agent meta-data set "dd_tags.key" dd_key_test_two
+  env:
+    API: "false"
+    name: "two"
+- key: dd_key_test_three
+  label: step_3
+  command: buildkite-agent meta-data set "dd_tags.key" dd_key_test_three
+  env:
+    API: "true"
+    name: "three"

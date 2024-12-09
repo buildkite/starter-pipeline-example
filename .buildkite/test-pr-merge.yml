@@ -1,0 +1,5 @@
+steps:
+  - label: ":zolve: test soft_fail"
+    command: exit 1
+    parallelism: 3
+    soft_fail: true

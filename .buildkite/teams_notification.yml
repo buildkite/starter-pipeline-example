@@ -1,0 +1,9 @@
+---
+steps:
+
+
+  - label: "\U0001F4AD Sending Teams Notification"
+    plugins:
+    - github.com/buildkite-plugins/teams-notification-buildkite-plugin#0.0.1:
+        message: From Buildkite with Love
+        webhook_url: "<webhook_url>"

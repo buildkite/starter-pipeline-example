@@ -1,0 +1,17 @@
+#!/bin/bash
+set -euo pipefail
+
+echo "Post-command hook, searching for artifact"
+
+
+if [ $BUILDKITE_LABEL == ":test multi line:" ]; then
+    echo "searching for artifact"
+    output=$(buildkite-agent artifact search testr/revisions1/foo.txt 2>&1)
+    status=$?
+    if [ $status -eq 0 ]; then
+        echo "Artifact found"
+    else
+        echo "Artifact not found or an error occurred"
+        echo "Error details: $output"
+    fi
+fi

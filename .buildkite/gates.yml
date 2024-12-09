@@ -1,0 +1,19 @@
+steps:
+  - label: "🚧"
+    command: echo "--> Start of concurrency gate"
+    concurrency_group: "deploy/${BUILDKITE_PIPELINE_SLUG}"
+    concurrency: 1
+    key: start-gate
+  
+  - command: "buildkite-agent pipeline upload .buildkite/pipeline.deploy.yml"
+    label: ":pipeline:"
+    key: "upload"
+    depends_on: start-gate
+
+  - wait
+  - label: "🚧"
+    command: echo "End of concurrency gate <--"
+    concurrency_group: "deploy/${BUILDKITE_PIPELINE_SLUG}"
+    concurrency: 1
+    key: end-gate
+ 

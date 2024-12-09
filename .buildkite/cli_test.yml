@@ -1,0 +1,4 @@
+steps:
+
+  - label: CLI
+    command: echo "hello"

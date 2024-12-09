@@ -1,0 +1,4 @@
+---
+steps:
+- label: ":run ps:"
+  command: pwsh ./src/script.ps1

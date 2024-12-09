@@ -1,0 +1,37 @@
+---
+steps:
+  - command: echo "Running unit tests"
+    key: unit-tests
+    agents:
+      queue: default
+  - command: echo "--> Start of concurrency gate"
+    concurrency_group: gate
+    concurrency: 1
+    key: start-gate
+    depends_on: unit-tests
+    agents:
+      queue: default
+  - wait
+  - command: echo "Running deployment to staging environment"
+    key: stage-deploy
+    depends_on: start-gate
+    agents:
+      queue: default
+  - command: echo "Running e2e tests after the deployment"
+    parallelism: 3
+    depends_on:
+      - stage-deploy
+    key: e2e
+    agents:
+      queue: default
+  - wait
+  - command: echo "End of concurrency gate <--"
+    concurrency_group: gate
+    concurrency: 1
+    key: end-gate
+    agents:
+      queue: default
+  - command: echo "This and subsequent steps run independently"
+    depends_on: end-gate
+    agents:
+      queue: default

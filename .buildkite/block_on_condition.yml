@@ -1,0 +1,3 @@
+steps:
+- label: Deploy to testing
+  command: echo "hello 1"

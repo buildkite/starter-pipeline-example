@@ -1,0 +1,6 @@
+steps:
+- label: ":ballot_box_with_ballot:"
+  command: echo "hello"
+
+- label: ":pipeline:"
+  command: "buildkite-agent pipeline upload .buildkite/dynamic_step.yml"

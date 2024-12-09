@@ -1,0 +1,8 @@
+---
+steps:
+- label: Testing triggers
+  key: trigger
+  command: echo "Testing triggers"
+- label: ":rocket: Deploy evdent trfigcger"
+  trigger: blocked-pipeline
+  depends_on: trigger
