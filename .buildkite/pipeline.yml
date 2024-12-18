@@ -2,6 +2,8 @@ steps:
   - label: ":construction_worker: Build"
     command: echo "Build the rocket"
     key: build
+    notify:
+    - email: "micheal.obasa@buildkite.com"
     
 
   - label: ":white_check_mark: Test"
