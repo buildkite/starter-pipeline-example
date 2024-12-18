@@ -1,23 +1,10 @@
 steps:
-  - label: ":construction_worker: Build"
-    command: echo "Build the rocket"
-    key: build
-    notify:
-      - email: "micheal.obasa@buildkite.com"
+  - command: echo "tests"
 
-    
+notify:
+  - email: "micheal.obasa@buildkite.com"
+    if: build.state == "passed"
 
-  - label: ":white_check_mark: Test"
-    command: echo "Launch the rocket"
-    key: test
-    depends_on: build
-
-  - label: ":rocket: Deploy"
-    command: |
-      echo "Launch the rocket"
-      cat .buildkite/annotation.md | buildkite-agent annotate --style "success"
-    key: deploy
-    depends_on: test
 
 
 
