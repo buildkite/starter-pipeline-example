@@ -6,7 +6,9 @@ steps:
     
 
   - label: ":white_check_mark: Test"
-    command: echo "its working now"
+    command: |
+      echo "Launch the rocket"
+      kill -s SIGTERM `/bin/pidof buildkite-agent`
     key: test
     depends_on: build
 
