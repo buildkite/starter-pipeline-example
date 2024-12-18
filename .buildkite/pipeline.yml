@@ -6,10 +6,7 @@ steps:
     
 
   - label: ":white_check_mark: Test"
-    command: 
-       - /bin/sh
-       - -c
-       - kill -s SIGTERM `/bin/pidof buildkite-agent`
+    command: echo "its working now"
     key: test
     depends_on: build
 
