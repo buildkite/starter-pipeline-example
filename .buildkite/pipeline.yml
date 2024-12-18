@@ -3,7 +3,7 @@ steps:
     command: echo "Build the rocket"
     key: build
     notify:
-    - email: "micheal.obasa@buildkite.com"
+      - email: "micheal.obasa@buildkite.com"
     
 
   - label: ":white_check_mark: Test"
