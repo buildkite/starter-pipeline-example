@@ -1,14 +1,11 @@
 steps:
   - label: ":construction_worker: Build"
     command: echo "Build the rocket"
-  
     key: build
     
 
   - label: ":white_check_mark: Test"
-    command: |
-      echo "Launch the rocket"
-      kill -s SIGTERM `/bin/pidof buildkite-agent`
+    command: echo "Launch the rocket"
     key: test
     depends_on: build
 
