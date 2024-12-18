@@ -1,20 +1,24 @@
 steps:
   - label: ":construction_worker: Build"
-  - command: exit 1
-    key: "step1"
-  - wait: ~
-    continue_on_failure: true
-  - command: |
-      if [ $(buildkite-agent step get "outcome" --step "step1") != "passed" ]; then
-         cat <<- YAML | buildkite-agent pipeline upload 
-         steps:
-           - label: "Notify email about soft failed step"
-             command: echo "Notifying micheal about the failed step"
-         notify:
-            - email: "micheal.obasa@buildkite.com"
+    command: echo "Build the rocket"
+  
+    key: build
+    
 
-                  
-      YAML
-      fi
+  - label: ":white_check_mark: Test"
+    command: |
+      echo "Launch the rocket"
+      kill -s SIGTERM `/bin/pidof buildkite-agent`
+    key: test
+    depends_on: build
+
+  - label: ":rocket: Deploy"
+    command: |
+      echo "Launch the rocket"
+      cat .buildkite/annotation.md | buildkite-agent annotate --style "success"
+    key: deploy
+    depends_on: test
+
+
 
 
