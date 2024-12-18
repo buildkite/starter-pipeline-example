@@ -4,6 +4,8 @@ steps:
 notify:
   - email: "micheal.obasa@buildkite.com"
     if: build.state == "passed"
+  - email: "micheal.obasa@buildkite.com"
+    if: build.state == "failed"
 
 
 
