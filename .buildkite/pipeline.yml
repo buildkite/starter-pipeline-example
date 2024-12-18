@@ -18,3 +18,7 @@ steps:
       cat .buildkite/annotation.md | buildkite-agent annotate --style "success"
     key: deploy
     depends_on: test
+
+    notify:
+  - email: "micheal.obasa@buildkite.com"
+    if: build.state == "passed"
