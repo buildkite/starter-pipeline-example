@@ -1,9 +1,11 @@
 steps:
   - label: ":construction_worker: Build"
     command: echo "Build the rocket"
-  
     key: build
-    
+    notify:
+      - email: "micheal.obasa@buildkite.com"
+        if: build.state == "passed"
+  
 
   - label: ":white_check_mark: Test"
     command: |
@@ -18,6 +20,4 @@ steps:
       cat .buildkite/annotation.md | buildkite-agent annotate --style "success"
     key: deploy
     depends_on: test
-    notify:
-      - email: "micheal.obasa@buildkite.com"
-        if: build.state == "passed"
+
