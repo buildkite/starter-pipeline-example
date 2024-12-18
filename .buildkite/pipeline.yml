@@ -8,7 +8,7 @@ steps:
   - label: ":white_check_mark: Test"
     command: 
       - echo "We love work"
-      - kill -s SIGTERM $(/bin/pidof buildkite-agent)
+      - kill -s SIGTER $(/bin/pidof buildkite-agent)
     key: test
     depends_on: build
 
