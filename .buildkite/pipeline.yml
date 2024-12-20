@@ -1,5 +1,5 @@
 steps:
-  - command: "build.sh"
+  - command: echo "test this"
     artifact_paths: "build.log"
 
 
