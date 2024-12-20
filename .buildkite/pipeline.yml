@@ -1,7 +1,6 @@
 steps:
   - commands: 
     - echo "test this"
-    - tee build.log
       buildkite-agent artifact upload "build.log"
       cat << EOF | buildkite-agent annotate --style "info"
       EOF
