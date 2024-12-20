@@ -1,5 +1,5 @@
 steps:
-  - command: build.sh
+  - command: ./build.sh
     artifact_paths: "build.log"
 
 
