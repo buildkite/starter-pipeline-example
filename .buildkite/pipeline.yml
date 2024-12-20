@@ -1,5 +1,7 @@
 steps:
-  - command: echo "test this"
+  - commands: 
+    - echo "test this"
+    - tee build.log
     artifact_paths: "build.log"
 
 
