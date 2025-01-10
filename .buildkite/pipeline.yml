@@ -1,11 +1,9 @@
 steps:
-  - commands: 
-    - echo "test this"
-      buildkite-agent artifact upload "build.log"
-      cat << EOF | buildkite-agent annotate --style "info"
-      EOF
-    artifact_paths: "build.log"
-
+- label: "Example Script"
+    command: "script.sh"
+    notify:
+      - github_commit_status:
+          context: "my-custom-status"
 
 
 
