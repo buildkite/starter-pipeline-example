@@ -1,6 +1,6 @@
 steps:
 - label: "Example Script"
-    command: "script.sh"
+    command: echo "dami"
     notify:
       - github_commit_status:
           context: "my-custom-status"
