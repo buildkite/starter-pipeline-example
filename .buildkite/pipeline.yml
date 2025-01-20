@@ -1,8 +1,6 @@
 steps:
 - label: "Example Script"
     command: echo my name 
-    notify:
-      - github_commit_status:
-          context: "my-custom-status"
+
 
 
