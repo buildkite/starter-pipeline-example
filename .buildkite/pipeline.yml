@@ -1,6 +1,3 @@
 steps:
-- label: "Example Script"
-    command: echo my name 
-
-
-
+  - label: "Echo Name"
+    command: echo "Hello, Buildkite!"
