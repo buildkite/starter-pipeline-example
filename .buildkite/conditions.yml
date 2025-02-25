@@ -1,0 +1,11 @@
+steps:
+
+  - label: "hello"
+    command: echo "hello"
+
+  - if: "build.pull_request.labels includes 'with-docker'"
+    label: ":kaniko: Build and deploy goose docker image"
+    command: echo "condition passed"
+
+  - label: "there"
+    command: echo "there"
