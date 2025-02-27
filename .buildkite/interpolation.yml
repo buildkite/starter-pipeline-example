@@ -1,4 +1,4 @@
 steps:
   - label: "run the outputter"
     command: |
-      echo "The answer is ${FAV_COLOUR:?Colour not set!}"
+      echo "The answer is ${FAV_COLOUR:?}"
