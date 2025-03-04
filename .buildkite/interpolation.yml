@@ -1,4 +1,6 @@
 steps:
   - label: "run the outputter"
     command: |
-      echo "The answer is $${FAV_COLOUR:?}"
+      echo "The answer is $${FAV_COLOUR:?}"|
+      echo build.scm.author.name |
+      echo build.scm.committer.name
