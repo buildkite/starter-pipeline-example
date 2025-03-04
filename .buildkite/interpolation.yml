@@ -1,4 +1,5 @@
 steps:
   - label: "run the outputter"
+    if: "build.scm.committer.name includes priy"
     command: |
       echo "The answer is $${FAV_COLOUR:?}"
