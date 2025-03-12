@@ -11,9 +11,8 @@ steps:
           value: "staging"
   - label: "Trigger pipelines based on changes to specific paths"
     depends_on: "cluster_select"
-    if: build.branch == "main"
     plugins:
-      - monorepo-diff-buildkite-plugin.git#test_trigger:
+      - monorepo-diff#v1.3.0:
           watch:
             # Trigger for grok-in-xai-build-and-deploy
             - path:
