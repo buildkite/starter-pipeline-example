@@ -10,7 +10,6 @@ steps:
         - label: "cluster"
           value: "staging"
   - label: "Trigger pipelines based on changes to specific paths"
-    depends_on: "cluster_select"
     plugins:
       - monorepo-diff#v1.3.0:
           watch:
@@ -19,9 +18,6 @@ steps:
                 - .buildkite/
               config:
                 trigger: "child-pipeline"
-                build:
-                  meta_data:
-                    selected_cluster: "buildkite-agent meta-data get selected_cluster"
-                  env:
-                    target_cluster: "${TARGET_CLUSTER:-buildkite-agent meta-data get selected_cluster}"
+
+
                     
