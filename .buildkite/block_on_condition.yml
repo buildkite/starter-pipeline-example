@@ -1,3 +1,8 @@
 steps:
 - label: Deploy to testing
-  command: echo "hello 1"
+  command: exit 1
+
+- block: "Deploy to production"
+
+- label: Deploy to production
+  command: exit 0
