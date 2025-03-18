@@ -1,20 +1,26 @@
 #!/bin/bash
 
-set -e
+set -euo pipefail  # Strict error handling
 
-echo "uploading artifact" 
+echo "Uploading artifact..." 
 
+if [[ $# -ne 1 ]]; then
+  echo "Usage: $0 <yaml-file>" >&2
+  exit 1
+fi
+
+input_file="$1"
+
+if [[ ! -f "$input_file" ]]; then
+  echo "Error: File '$input_file' not found." >&2
+  exit 1
+fi
 
 pipeline_file=$(mktemp --suffix .yaml --tmpdir pipeline.XXXXXXXXXX)
 # shellcheck disable=SC2064
-trap "rm -rf \"${pipeline_file}\"" EXIT
-local yaml_file
-yaml_file="$("$@")"
+trap 'rm -f "${pipeline_file}"' EXIT  # Ensure cleanup on exit
 
-if [[ -n "${yaml_file}" ]]; then
+cp "$input_file" "$pipeline_file"  # Copy input file to temp file
 
-  echo "${yaml_file}" > "${pipeline_file}"
-  buildkite-agent artifact upload "${pipeline_file}"
-  buildkite-agent pipeline upload "${pipeline_file}"
-fi
-
+buildkite-agent artifact upload "${pipeline_file}"
+buildkite-agent pipeline upload "${pipeline_file}"
