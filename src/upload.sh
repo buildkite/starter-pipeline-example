@@ -4,7 +4,7 @@ set -e
 
 echo "uploading artifact" 
 
-local pipeline_file
+
 pipeline_file=$(mktemp --suffix .yaml --tmpdir pipeline.XXXXXXXXXX)
 # shellcheck disable=SC2064
 trap "rm -rf \"${pipeline_file}\"" EXIT
