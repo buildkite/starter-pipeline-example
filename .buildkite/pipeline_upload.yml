@@ -1,7 +1,5 @@
----
-env:
-  FORCE_COLOR: '1'
-  PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+
 steps:
-- key: eslint-ts-v3
-  label: ":eslint: Lint: TS (v3)"
+  - key: eslint-ts-v3
+    label: ":eslint: Lint: TS (v3)"
+    command: echo "hi"
