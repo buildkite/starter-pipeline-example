@@ -7,7 +7,7 @@ echo "Uploading artifact..."
 
 pwd
 ls -la
-pipeline_file= pipeline_upload.yml
+pipeline_file=".buildkite/pipeline_upload.yml"
 # shellcheck disable=SC2064
 trap 'rm -f "${pipeline_file}"' EXIT  # Ensure cleanup on exit
 
