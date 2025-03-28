@@ -7,8 +7,8 @@ echo "steps:"
 
 # A deploy step only if it's the master branch
 
-if [[ "$BUILDKITE_BRANCH" == "main" ]]; then
-  cat << EOF
+
+cat << EOF
 
 
 steps:
@@ -22,4 +22,3 @@ steps:
 
 EOF
 
-fi
