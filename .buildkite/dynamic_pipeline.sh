@@ -12,7 +12,7 @@ cat << EOF
 
 
 steps:
-  - label: ":rocket: WhooTrigger Pipeline [baseimage]"
+  - label: ":rocket: Trigger Pipeline [baseimage]"
     env:
       AUTHELIA_RELEASE: "${BUILDKITE_MESSAGE}"
       BUILDKITE_PULL_REQUEST: "${BUILDKITE_PULL_REQUEST}"
