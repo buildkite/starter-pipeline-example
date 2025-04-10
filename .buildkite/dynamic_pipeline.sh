@@ -50,7 +50,7 @@ steps:
       DEFAULT_TRAILER_LOAD_COG_DISPLACEMENT_SET_VERSION: "8"
       TRAILER_LOAD_COG_DISPLACEMENT_TEST_DRIVE_REPORT_NAME: "Trailer Load COG Variation - Control Structured Test"
       CONSTANT_WIND_SET_VERSION: "${CONSTANT_WIND_SET_VERSION:-$$DEFAULT_CONSTANT_WIND_SET_VERSION}"
-    command: echo "hellp"
+    command: echo "hello world"
 
 EOF
 
