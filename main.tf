@@ -7,11 +7,17 @@ terraform {
   }
 }
 
-data "buildkite_pipeline" "child-pipeline" {
-  slug         = "child-pipeline"
+provider "buildkite" {
+  api_token    = var.buildkite_api_token
+  organization = var.buildkite_org
 }
 
 
+data "buildkite_pipeline" "pipeline" {
+  slug       = "child-pipeline"
+  
+  
+}
 
 resource "buildkite_team" "team" {
   name                = "Everyone"
@@ -22,7 +28,7 @@ resource "buildkite_team" "team" {
 
 # allow everyone in the "Everyone" team read-only access to pipeline
 resource "buildkite_pipeline_team" "pipeline_team" {
-  pipeline_id  = data.buildkite_pipeline.child-pipeline.id
+  pipeline_id  = buildkite_pipeline.pipeline.id
   team_id      = buildkite_team.team.id
   access_level = "READ_ONLY"
 }
