@@ -1,8 +1,8 @@
 
 steps:
   - label: "Terraform Plan"
-    command: ./plan.sh
+    command: ./src/plan.sh
 
   - label: "Terraform Apply"  
-    command: ./apply.sh
+    command: ./src/apply.sh
 
