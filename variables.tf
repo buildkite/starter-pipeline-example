@@ -6,5 +6,6 @@ variable "buildkite_api_token" {
 
 variable "buildkite_org" {
   type        = string
+  default     = "priyasupport"
   description = "Buildkite organization slug"
 }
