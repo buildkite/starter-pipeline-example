@@ -9,13 +9,11 @@ terraform {
 
 provider "buildkite" {
   api_token    = var.buildkite_api_token
-  organization = var.buildkite_org
 }
 
 
 data "buildkite_pipeline" "pipeline" {
   slug         = "child-pipeline"
-  organization = var.buildkite_org
    
 }
 
