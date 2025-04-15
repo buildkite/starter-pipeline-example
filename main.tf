@@ -14,7 +14,8 @@ provider "buildkite" {
 
 
 data "buildkite_pipeline" "pipeline" {
-  slug       = "child-pipeline"
+  slug         = "child-pipeline"
+  organization = var.buildkite_org
    
 }
 
