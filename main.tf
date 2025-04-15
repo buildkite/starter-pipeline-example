@@ -15,6 +15,7 @@ provider "buildkite" {
 
 resource "buildkite_pipeline" "pipeline" {
   name       = "child-pipeline"
+  repository = "https://github.com/PriyaSudip/starter.git"
 }
 
 resource "buildkite_team" "team" {
