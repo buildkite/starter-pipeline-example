@@ -9,7 +9,6 @@ terraform {
 
 data "buildkite_pipeline" "child-pipeline" {
   slug         = "child-pipeline"
-  organization = var.buildkite_org
 }
 
 
