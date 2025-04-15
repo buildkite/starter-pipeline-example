@@ -1,5 +1,5 @@
 #!/bin/bash
-set -euo pipefail
+set -x 
 
 terraform init
 terraform apply -auto-approve
