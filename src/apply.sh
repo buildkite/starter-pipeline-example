@@ -1,5 +1,6 @@
 #!/bin/bash
-set -x 
+
+export PS4='$'
 
 terraform init
 terraform apply -auto-approve

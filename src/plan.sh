@@ -1,6 +1,6 @@
 #!/bin/bash
-set -x
 
+export PS4='$'
 terraform init
 terraform plan -out=tfplan
 terraform show -no-color tfplan > plan.txt
