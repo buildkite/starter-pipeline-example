@@ -41,4 +41,7 @@ while [ -n "$url" ]; do
   if [ -n "$next_link" ]; then
     url="$next_link"
   fi
+  else  
+    echo "No more pages to process."
+  fi
 done
