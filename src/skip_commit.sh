@@ -2,50 +2,44 @@
 
 set -euo pipefail
 
-
-echo "skipping an existing commit"
-
 echo "🔍 Checking for existing builds for commit $BUILDKITE_COMMIT..."
 
-page=1
-per_page=100
-found=false
+# Initialize the URL for the first page
+url="https://api.buildkite.com/v2/organizations/${BUILDKITE_ORGANIZATION_SLUG}/pipelines/${BUILDKITE_PIPELINE_SLUG}/builds?commit=${BUILDKITE_COMMIT}&per_page=100"
 
-while true; do
-  # Fetch builds for the specified commit and page
-  response=$(curl -s -D - \
-    -H "Authorization: Bearer ${buildkite_api_token}" \
-    "https://api.buildkite.com/v2/organizations/${BUILDKITE_ORGANIZATION_SLUG}/pipelines/${BUILDKITE_PIPELINE_SLUG}/builds?commit=${BUILDKITE_COMMIT}&page=${page}&per_page=${per_page}")
+while [ -n "$url" ]; do
+  # Fetch the response headers and body
+  response=$(curl -s -D - -H "Authorization: Bearer ${buildkite_api_token}" "$url")
+  echo "Response: $response"
+  # Separate headers and body
+  headers=$(echo "$response" | sed '/^\r$/q')
+  body=$(echo "$response" | sed '1,/^\r$/d')
 
-    # read headers and body
-    headers=$(echo "$response" | sed '/^\r$/q')
-    body=$(echo "$response" | sed '1,/^\r$/d')
+  # Extract build numbers from the response body
+  build_numbers=$(echo "$body" | grep -o '"number":[0-9]\+' | grep -o '[0-9]\+')
 
-    # Extract build numbers from the response body
-    build_numbers=$(echo "$body" | grep -o '"number":[0-9]\+' | grep -o '[0-9]\+')
+  # Remove leading zeros from build numbers
+  build_numbers=$(echo "$build_numbers" | sed 's/^0*//')
 
-    # Remove leading zeros from build numbers
-    build_numbers=$(echo "$build_numbers" | sed 's/^0*//')
+  echo "Build numbers where this commit is built: ${build_numbers}"
 
-    echo "Build numbers where this commit is built: ${build_numbers}"
-
-    # Check if any build number is different from the current build number
-    for number in $build_numbers; do
+  # Check if any build number is different from the current build number
+  for number in $build_numbers; do
     if [ "$number" != "$BUILDKITE_BUILD_NUMBER" ]; then
-        echo "✅ Commit $BUILDKITE_COMMIT has already been built in build #$number. Skipping step..."
-        buildkite-agent annotate "Commit $BUILDKITE_COMMIT has already been built in build #$number. Exiting step..."
-        exit 1
+      echo "✅ Commit $BUILDKITE_COMMIT has already been built in build #$number. Skipping step..."
+      buildkite-agent annotate "Commit $BUILDKITE_COMMIT has already been built in build #$number. Exiting step..."
+      exit 1
     fi
-    done
+  done
 
-    # Check for the 'next' link in the headers
-    next_link=$(echo "$headers" | grep -i '^Link:' | sed -n 's/.*<\([^>]*\)>; rel="next".*/\1/p')
+  # Extract the 'next' link from the headers
+  next_link=$(echo "$headers" | grep -i '^Link:' | sed -n 's/.*<\([^>]*\)>; rel="next".*/\1/p')
 
-    if [ -z "$next_link" ]; then
-        # No more pages
-        break
-    else
-        # Increment page number for the next iteration
-        ((page++))
-    fi
+  # Update the URL for the next iteration
+  if [ -n "$next_link" ]; then
+    url="$next_link"
+  else
+    # No more pages
+    break
+  fi
 done
