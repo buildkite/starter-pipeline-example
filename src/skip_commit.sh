@@ -31,7 +31,7 @@ while [ -n "$url" ]; do
         if [ "$number" != "$BUILDKITE_BUILD_NUMBER" ]; then
             echo "✅ Commit $BUILDKITE_COMMIT has already been built in build #$number. Skipping step..."
             buildkite-agent annotate "Commit $BUILDKITE_COMMIT has already been built in build #$number. Cancelling the build..."
-            $url=""
+            url=""
             curl -H "Authorization: Bearer $buildkite_api_token" \
                  -X PUT "https://api.buildkite.com/v2/organizations/${BUILDKITE_ORGANIZATION_SLUG}/pipelines/${BUILDKITE_PIPELINE_SLUG}/builds/$BUILDKITE_BUILD_NUMBER/cancel"
             exit 0
