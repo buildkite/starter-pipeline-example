@@ -17,12 +17,14 @@ RESPONSE=$(curl -s -H "Authorization: Bearer ${buildkite_api_token}" \
 
 echo "Response ${RESPONSE}"
 
-# Count the number of occurrences of the "number" field in the JSON response
-BUILD_COUNT=$(echo "$RESPONSE" | grep -o '"number":' | wc -l)
 
-# extract build IDs
-BUILD_IDS=$(echo "$RESPONSE" | grep -o '"id":"[^"]\+"' | cut -d':' -f2 | tr -d '"')
 
+BUILD_IDS=()
+while [[ "$RESPONSE" =~ \"id\":\"([^\"]+)\" ]]; do
+  BUILD_IDS+=("${BASH_REMATCH[1]}")
+  RESPONSE="${RESPONSE#*"${BASH_REMATCH[0]}"}"  # Remove the matched part to find the next occurrence
+done
+echo "Build IDs: $BUILD_IDS"
 
 for ID in $BUILD_IDS; do
   if [ "$ID" != "$BUILDKITE_BUILD_ID" ]; then
