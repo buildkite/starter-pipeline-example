@@ -1,6 +1,7 @@
 steps:
   - label: check if commit should be skipped
     key: skip-commit
+    command: echo "hello"
     plugins:
       - skip-build-for-commit#pre-checkout:
           buildkite_api_token: $buildkite_api_token
