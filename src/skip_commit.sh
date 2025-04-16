@@ -14,7 +14,9 @@ while [ -n "$url" ]; do
     # Separate headers and body
     headers=$(echo "$response" | sed '/^\r$/q')
     body=$(echo "$response" | sed '1,/^\r$/d')
+    
     echo "headers: $headers"
+
     # Extract build numbers from the response body
     build_numbers=$(echo "$body" | grep -o '"number":[0-9]\+' | grep -o '[0-9]\+')
 
@@ -29,6 +31,7 @@ while [ -n "$url" ]; do
         if [ "$number" != "$BUILDKITE_BUILD_NUMBER" ]; then
             echo "✅ Commit $BUILDKITE_COMMIT has already been built in build #$number. Skipping step..."
             buildkite-agent annotate "Commit $BUILDKITE_COMMIT has already been built in build #$number. Cancelling the build..."
+            $url=""
             curl -H "Authorization: Bearer $buildkite_api_token" \
                  -X PUT "https://api.buildkite.com/v2/organizations/${BUILDKITE_ORGANIZATION_SLUG}/pipelines/${BUILDKITE_PIPELINE_SLUG}/builds/$BUILDKITE_BUILD_NUMBER/cancel"
             exit 0
