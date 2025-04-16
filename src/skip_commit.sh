@@ -29,8 +29,8 @@ echo "Build IDs: ${BUILD_IDS[*]}"
 # Loop through the extracted build IDs
 for ID in "${BUILD_IDS[@]}"; do
   if [ "$ID" != "$BUILDKITE_BUILD_ID" ]; then
-    echo "✅ Commit $COMMIT has already been built in build ID $ID. Skipping step..."
-    buildkite-agent annotate "Skipping build for commit $COMMIT as it has already been built."
+    echo "✅ Commit $BUILDKITE_COMMIT has already been built in build ID $ID. Skipping step..."
+    buildkite-agent annotate "Skipping build for commit $BUILDKITE_COMMIT as it has already been built."
     exit 1
   fi
 done
