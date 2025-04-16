@@ -21,6 +21,7 @@ echo "Response ${RESPONSE}"
 BUILD_IDS=()
 while [[ "$RESPONSE" =~ \"id\":\"([^\"]+)\" ]]; do
   BUILD_IDS+=("${BASH_REMATCH[1]}")
+  echo "Build ID in loop: ${BASH_REMATCH[1]}"
   RESPONSE="${RESPONSE#*"${BASH_REMATCH[0]}"}"  # Remove the matched part to find the next occurrence
 done
 
