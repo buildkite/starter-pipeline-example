@@ -14,7 +14,7 @@ while [ -n "$url" ]; do
     # Separate headers and body
     headers=$(echo "$response" | sed '/^\r$/q')
     body=$(echo "$response" | sed '1,/^\r$/d')
-
+    echo "headers: $headers"
     # Extract build numbers from the response body
     build_numbers=$(echo "$body" | grep -o '"number":[0-9]\+' | grep -o '[0-9]\+')
 
