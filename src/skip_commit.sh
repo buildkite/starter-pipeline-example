@@ -17,22 +17,14 @@ echo "Response ${RESPONSE}"
 
 
 
-# Extract build IDs using pattern matching
-BUILD_IDS=()
-while [[ "$RESPONSE" =~ \"id\":\"([^\"]+)\" ]]; do
-  BUILD_IDS+=("${BASH_REMATCH[1]}")
-  echo "Build ID in loop: ${BASH_REMATCH[1]}"
-  RESPONSE="${RESPONSE#*"${BASH_REMATCH[0]}"}"  # Remove the matched part to find the next occurrence
-done
+# Extract build numbers from the response
+BUILD_NUMBERS=$(echo "$RESPONSE" | grep -o '"number":[0-9]\+' | grep -o '[0-9]\+')
 
-echo "Build IDs: ${BUILD_IDS[*]}"
-
-# Loop through the extracted build IDs
-for ID in "${BUILD_IDS[@]}"; do
-  if [ "$ID" != "$BUILDKITE_BUILD_ID" ]; then
-    echo "✅ Commit $BUILDKITE_COMMIT has already been built in build ID $ID. Skipping step..."
-    buildkite-agent annotate "Skipping build for commit $BUILDKITE_COMMIT as it has already been built."
-    exit 1
+# Check if any build number is different from the current build number
+for NUMBER in $BUILD_NUMBERS; do
+  if [ "$NUMBER" != "$BUILDKITE_BUILD_NUMBER" ]; then
+    echo "✅ Commit $BUILDKITE_COMMIT has already been built in build #$NUMBER. Skipping step..."
+    exit 0
   fi
 done
 
