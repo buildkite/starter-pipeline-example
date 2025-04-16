@@ -40,8 +40,8 @@ while [ -n "$url" ]; do
   # Update the URL for the next iteration
   if [ -n "$next_link" ]; then
     url="$next_link"
+  else
+    echo "No more pages to fetch."
   fi
-  else  
-    echo "No more pages to process."
-  fi
+    
 done
