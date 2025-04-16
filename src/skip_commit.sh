@@ -5,15 +5,13 @@ set -euo pipefail
 
 echo "skipping an existing commit"
 
-
-COMMIT=${BUILDKITE_COMMIT}
-echo "🔍 Checking for existing builds for commit $COMMIT..."
+echo "🔍 Checking for existing builds for commit $BUILDKITE_COMMIT..."
 
 
 
 # Fetch builds for the specified commit
 RESPONSE=$(curl -s -H "Authorization: Bearer ${buildkite_api_token}" \
-  "https://api.buildkite.com/v2/organizations/${BUILDKITE_ORGANIZATION_SLUG}/pipelines/${BUILDKITE_PIPELINE_SLUG}/builds?commit=${COMMIT}")
+  "https://api.buildkite.com/v2/organizations/${BUILDKITE_ORGANIZATION_SLUG}/pipelines/${BUILDKITE_PIPELINE_SLUG}/builds?commit=${BUILDKITE_COMMIT}")
 
 echo "Response ${RESPONSE}"
 
