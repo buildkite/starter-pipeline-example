@@ -12,7 +12,7 @@ echo "🔍 Checking for existing builds for commit $COMMIT..."
 
 
 # Fetch builds for the specified commit
-RESPONSE=$(curl -s -H "Authorization: Bearer ${TOKEN}" \
+RESPONSE=$(curl -s -H "Authorization: Bearer ${buildkite_api_token}" \
   "https://api.buildkite.com/v2/organizations/${BUILDKITE_ORGANIZATION_SLUG}/pipelines/${BUILDKITE_PIPELINE_SLUG}/builds?commit=${COMMIT}")
 
 # Count the number of occurrences of the "number" field in the JSON response
@@ -25,7 +25,7 @@ if [[ "$BUILD_COUNT" -gt 0 ]]; then
     --context "skip_commit" \
     --message "Skipping build for commit $COMMIT as it has already been built." \
     "${BUILDKITE_BUILD_ID}"
-  exit 0
+  exit 1
 else
   echo "🚀 No previous build found for commit $COMMIT. Proceeding..."
 fi
