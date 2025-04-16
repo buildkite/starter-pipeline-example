@@ -20,13 +20,18 @@ echo "Response ${RESPONSE}"
 # Extract build numbers from the response
 BUILD_NUMBERS=$(echo "$RESPONSE" | grep -o '"number":[0-9]\+' | grep -o '[0-9]\+')
 
+BUILD_NUMBERS=$(echo "$BUILD_NUMBERS" | while read -r number; do
+  # Remove 0s
+  echo "$number" | sed 's/^0*//'
+done)
+
 echo "Build numbers: ${BUILD_NUMBERS}"
 
 # Check if any build number is different from the current build number
 for NUMBER in $BUILD_NUMBERS; do
   if [ "$NUMBER" != "$BUILDKITE_BUILD_NUMBER" ]; then
     echo "✅ Commit $BUILDKITE_COMMIT has already been built in build #$NUMBER. Skipping step..."
-    exit 0
+    exit 1
   fi
 done
 
