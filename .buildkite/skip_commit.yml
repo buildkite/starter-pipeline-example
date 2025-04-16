@@ -2,7 +2,8 @@ steps:
   - label: check if commit should be skipped
     key: skip-commit
     plugins:
-      - skip-build-for-commit/main
+      - skip-build-for-commit#main:
+        buildkite_api_token: $buildkite_api_token
 
   - label: ":eslint: Lint: TS (v3)"
     depends_on: skip-commit
