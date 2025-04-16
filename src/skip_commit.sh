@@ -20,11 +20,17 @@ echo "Response ${RESPONSE}"
 # Count the number of occurrences of the "number" field in the JSON response
 BUILD_COUNT=$(echo "$RESPONSE" | grep -o '"number":' | wc -l)
 
-if [[ "$BUILD_COUNT" -gt 0 ]]; then
-  echo "✅ Commit $COMMIT has already been built. Skipping step..."
+# extract build IDs
+BUILD_IDS=$(echo "$RESPONSE" | grep -o '"id":"[^"]\+"' | cut -d':' -f2 | tr -d '"')
+
+
+for ID in $BUILD_IDS; do
+  if [ "$ID" != "$CURRENT_BUILD_ID" ]; then
+    echo "✅ Commit $COMMIT has already been built in build ID $ID. Skipping step..."
     buildkite-agent annotate  "Skipping build for commit $COMMIT as it has already been built." 
-  exit 1
-else
-  echo "🚀 No previous build found for commit $COMMIT. Proceeding..."
-fi
+
+    exit 1
+  fi
+done
+
 
