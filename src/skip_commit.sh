@@ -7,30 +7,45 @@ echo "skipping an existing commit"
 
 echo "🔍 Checking for existing builds for commit $BUILDKITE_COMMIT..."
 
-#Fetch builds ran on this commit
+page=1
+per_page=100
+found=false
 
-response=$(curl -s -H "Authorization: Bearer ${buildkite_api_token}" \
-  "https://api.buildkite.com/v2/organizations/${BUILDKITE_ORGANIZATION_SLUG}/pipelines/${BUILDKITE_PIPELINE_SLUG}/builds?commit=${BUILDKITE_COMMIT}")
+while true; do
+  # Fetch builds for the specified commit and page
+  response=$(curl -s -D - \
+    -H "Authorization: Bearer ${buildkite_api_token}" \
+    "https://api.buildkite.com/v2/organizations/${BUILDKITE_ORGANIZATION_SLUG}/pipelines/${BUILDKITE_PIPELINE_SLUG}/builds?commit=${BUILDKITE_COMMIT}&page=${page}&per_page=${per_page}")
 
+    # read headers and body
+    headers=$(echo "$response" | sed '/^\r$/q')
+    body=$(echo "$response" | sed '1,/^\r$/d')
 
-echo "Response ${response}"
+    # Extract build numbers from the response body
+    build_numbers=$(echo "$body" | grep -o '"number":[0-9]\+' | grep -o '[0-9]\+')
 
+    # Remove leading zeros from build numbers
+    build_numbers=$(echo "$build_numbers" | sed 's/^0*//')
 
-# Extract build numbers from the response
-build_numbers=$(echo "$response" | grep -o '"number":[0-9]\+' | grep -o '[0-9]\+')
+    echo "Build numbers where this commit is built: ${build_numbers}"
 
-# Remove 0s as there are few other number 0 in the response
-build_numbers=$(echo "$build_numbers" | while read -r number; do
-  echo "$number" | sed 's/^0*//'
-done)
+    # Check if any build number is different from the current build number
+    for number in $build_numbers; do
+    if [ "$number" != "$BUILDKITE_BUILD_NUMBER" ]; then
+        echo "✅ Commit $BUILDKITE_COMMIT has already been built in build #$number. Skipping step..."
+        buildkite-agent annotate "Commit $BUILDKITE_COMMIT has already been built in build #$number. Exiting step..."
+        exit 1
+    fi
+    done
 
-echo "Build numbers: ${build_numbers}"
+    # Check for the 'next' link in the headers
+    next_link=$(echo "$headers" | grep -i '^Link:' | sed -n 's/.*<\([^>]*\)>; rel="next".*/\1/p')
 
-# Check if any build number is different from the current build number
-for number in $build_numbers; do
-  if [ "$number" != "$BUILDKITE_BUILD_NUMBER" ]; then
-    echo "✅ Commit $BUILDKITE_COMMIT has already been built in build #$number. Skipping step..."
-    exit 1
-  fi
+    if [ -z "$next_link" ]; then
+        # No more pages
+        break
+    else
+        # Increment page number for the next iteration
+        ((page++))
+    fi
 done
-
