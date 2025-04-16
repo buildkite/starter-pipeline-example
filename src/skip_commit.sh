@@ -36,6 +36,7 @@ while [ -n "$url" ]; do
     fi
     done
     echo "No other builds found for commit $BUILDKITE_COMMIT."
+    echo "Checking for next page of results... $headers"
     # Extract the 'next' link from the headers
     next_link=$(echo "$headers" | grep -i '^Link:' | sed -n 's/.*<\([^>]*\)>; rel="next".*/\1/p')
     echo "Next link: $next_link"
