@@ -38,8 +38,5 @@ while [ -n "$url" ]; do
   # Update the URL for the next iteration
   if [ -n "$next_link" ]; then
     url="$next_link"
-  else
-    # No more pages
-    break
   fi
 done
