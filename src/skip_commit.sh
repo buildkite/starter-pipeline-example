@@ -40,6 +40,10 @@ while [ -n "$url" ]; do
 
     # Extract the Link header line
     link_header=$(echo "$headers" | grep -i '^Link:')
+    if [ -z "$link_header" ]; then
+        echo "No more pages of results."
+        break
+    fi
     echo "Link header: $link_header"
 
     # Use sed to extract the URL with rel="next"
