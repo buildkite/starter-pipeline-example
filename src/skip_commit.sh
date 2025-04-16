@@ -14,8 +14,6 @@ while [ -n "$url" ]; do
     # Separate headers and body
     headers=$(echo "$response" | sed '/^\r$/q')
     body=$(echo "$response" | sed '1,/^\r$/d')
-    
-    echo "headers: $headers"
 
     # Extract build numbers from the response body
     build_numbers=$(echo "$body" | grep -o '"number":[0-9]\+' | grep -o '[0-9]\+')
@@ -31,7 +29,6 @@ while [ -n "$url" ]; do
         if [ "$number" != "$BUILDKITE_BUILD_NUMBER" ]; then
             echo "✅ Commit $BUILDKITE_COMMIT has already been built in build #$number. Skipping step..."
             buildkite-agent annotate "Commit $BUILDKITE_COMMIT has already been built in build #$number. Cancelling the build..."
-            url=""
             curl -H "Authorization: Bearer $buildkite_api_token" \
                  -X PUT "https://api.buildkite.com/v2/organizations/${BUILDKITE_ORGANIZATION_SLUG}/pipelines/${BUILDKITE_PIPELINE_SLUG}/builds/$BUILDKITE_BUILD_NUMBER/cancel"
             exit 0
@@ -41,5 +38,16 @@ while [ -n "$url" ]; do
     echo "No other builds found for commit $BUILDKITE_COMMIT."
     echo "Checking for next page of results..."
 
+    # Extract the 'Link' header
+    link_header=$(echo "$headers" | grep -i '^Link:')
 
+    # Extract the URL with rel="next"
+    next_link=$(echo "$link_header" | tr ',' '\n' | sed -n -E 's/.*<([^>]+)>; rel="next".*/\1/p')
+
+    # Update the URL for the next iteration
+    if [ -n "$next_link" ]; then
+        url="$next_link"
+    else
+        url=""
+    fi
 done
