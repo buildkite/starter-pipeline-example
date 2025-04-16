@@ -1,0 +1,3 @@
+steps:
+  - label: check if commit should be skipped
+    command: ./src/skip_commit.sh
