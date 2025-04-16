@@ -20,6 +20,8 @@ echo "Response ${RESPONSE}"
 # Extract build numbers from the response
 BUILD_NUMBERS=$(echo "$RESPONSE" | grep -o '"number":[0-9]\+' | grep -o '[0-9]\+')
 
+echo "Build numbers: ${BUILD_NUMBERS}"
+
 # Check if any build number is different from the current build number
 for NUMBER in $BUILD_NUMBERS; do
   if [ "$NUMBER" != "$BUILDKITE_BUILD_NUMBER" ]; then
