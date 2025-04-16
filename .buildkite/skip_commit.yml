@@ -1,10 +1,6 @@
 steps:
 
   - label: check if commit should be skipped
-    key: skip-commit
-    command: ./src/skip_commit.sh
-
-  - label: check if commit should be skipped
     depends_on: skip-commit
     command: echo "check if skipping"
     plugins:
