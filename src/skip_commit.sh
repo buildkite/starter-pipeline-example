@@ -17,20 +17,21 @@ echo "Response ${RESPONSE}"
 
 
 
+# Extract build IDs using pattern matching
 BUILD_IDS=()
 while [[ "$RESPONSE" =~ \"id\":\"([^\"]+)\" ]]; do
   BUILD_IDS+=("${BASH_REMATCH[1]}")
   RESPONSE="${RESPONSE#*"${BASH_REMATCH[0]}"}"  # Remove the matched part to find the next occurrence
 done
-echo "Build IDs: $BUILD_IDS"
 
-for ID in $BUILD_IDS; do
+echo "Build IDs: ${BUILD_IDS[*]}"
+
+# Loop through the extracted build IDs
+for ID in "${BUILD_IDS[@]}"; do
   if [ "$ID" != "$BUILDKITE_BUILD_ID" ]; then
     echo "✅ Commit $COMMIT has already been built in build ID $ID. Skipping step..."
-    buildkite-agent annotate  "Skipping build for commit $COMMIT as it has already been built." 
-
+    buildkite-agent annotate "Skipping build for commit $COMMIT as it has already been built."
     exit 1
   fi
 done
-
 
