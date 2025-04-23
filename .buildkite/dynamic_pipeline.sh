@@ -10,6 +10,7 @@ steps:
         cat <<EOF | buildkite-agent pipeline upload
         steps:
           - label: "blah"
+            depends_on: ~
             command: echo hello
         EOF
 
