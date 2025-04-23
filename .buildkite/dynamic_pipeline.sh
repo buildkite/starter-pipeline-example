@@ -2,12 +2,12 @@ steps:
   - label: "trigger"
     id: trigger
       cat <<EOF | buildkite-agent pipeline upload
-      steps:
-        - label: blah
-          depends_on: ~
-          command: echo hello
+        steps:
+          - label: blah
+            depends_on: ~
+            command: echo hello
       EOF
-      sleep 10
+    sleep 10
       
   - label: "finisher"
     depends_on: trigger
