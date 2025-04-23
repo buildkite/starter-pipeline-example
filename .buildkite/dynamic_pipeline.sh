@@ -13,8 +13,6 @@ steps:
             command: echo hello
         EOF
 
-        |
-        sleep 10
 
   - label: "finisher"
     depends_on: "trigger"
