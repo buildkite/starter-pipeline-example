@@ -16,6 +16,5 @@ steps:
 
 
   - label: "finisher"
-    depends_on: "trigger"
     command: echo "i am done"
 YAML
