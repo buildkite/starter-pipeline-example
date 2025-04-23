@@ -5,12 +5,15 @@ cat <<YAML
 steps:
   - label: "trigger"
     command:
-      - cat <<EOF | buildkite-agent pipeline upload
-steps:
-  - label: "blah"
-    command: echo hello
-EOF
+      - |
+        cat <<EOF | buildkite-agent pipeline upload
+        steps:
+          - label: "blah"
+            command: echo hello
+        EOF
+    sleep: 10
+
   - label: "finisher"
-    depends_on: trigger
+    depends_on: "trigger"
     command: echo "i am done"
 YAML
