@@ -4,6 +4,7 @@ set -euo pipefail
 cat <<YAML
 steps:
   - label: "trigger"
+    id: trigger
     command:
       - |
         cat <<EOF | buildkite-agent pipeline upload
@@ -11,6 +12,9 @@ steps:
           - label: "blah"
             command: echo hello
         EOF
+
+        |
+        sleep 10
 
   - label: "finisher"
     depends_on: "trigger"
