@@ -1,0 +1,5 @@
+steps:
+- label: "child step 1"
+  key: step1
+  command: echo "hello world"
+  soft_fail: true
