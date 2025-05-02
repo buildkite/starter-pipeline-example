@@ -10,7 +10,7 @@ steps:
 - label: "step 3"
   key: step3
   trigger: child1
-  command: echo "hello world"
+
 
 
 - label: dependent
