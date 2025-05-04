@@ -1,7 +1,4 @@
 steps:
-  - label: skip-commit check
-    key: skip
-    command: ./src/skip_commit.sh
 
   - label: check if commit should be skipped
     key: skip-commit
