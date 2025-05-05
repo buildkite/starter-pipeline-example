@@ -1,5 +1,5 @@
 steps:
 - label: "child step 1"
   key: step1
-  command: echo "hello world"
+  command: echo "hello world" && BUILDKITE_TEST_ENGINE_API_ACCESS_TOKEN
   soft_fail: true
