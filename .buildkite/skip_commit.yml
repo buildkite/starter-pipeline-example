@@ -5,7 +5,7 @@ steps:
     command: echo "check if skipping "
     plugins:
       - skip-build-for-commit#pre-checkout:
-          READ_BUILD_TOKEN: "SKIP_BUILD_API_TOKEN"
+          read_build_token_env: "SKIP_BUILD_API_TOKEN"
 
   - label: ":eslint: Lint: TS (v3)"
     depends_on: skip-commit
