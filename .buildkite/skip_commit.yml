@@ -2,11 +2,8 @@ steps:
 
   - label: check if commit should be skipped
     key: skip-commit
-    command: echo "check if cancelling"
+    command: echo "check new commit" "
     plugins:
       - skip-build-for-commit#pre-checkout:
           read_build_token_env: "SKIP_BUILD_API_TOKEN"
 
-  - label: ":eslint: Lint: TS (v3)"
-    depends_on: skip-commit
-    command: echo "hello "
