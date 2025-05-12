@@ -2,7 +2,7 @@ steps:
 
   - label: check if commit should be skipped
     key: skip-commit
-    command: echo "check if skipping"
+    command: echo "check if cancelling"
     plugins:
       - skip-build-for-commit#pre-checkout:
           read_build_token_env: "SKIP_BUILD_API_TOKEN"
