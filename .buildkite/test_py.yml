@@ -1,0 +1,6 @@
+steps:
+  - label: "test if python installed in the custom image"
+    command: python3.12 --version 
+  
+  - label: "test if  pip installed in the custom image"
+    command:  pip3.12 --version

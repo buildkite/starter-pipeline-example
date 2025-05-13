@@ -1,0 +1,10 @@
+steps:
+  - label: "-1"
+    command: exit -1
+    retry:
+      automatic:
+        - exit_status: -1 || 255
+          limit: 2
+
+  - label: "255"
+    command:  exit 255

@@ -1,0 +1,6 @@
+
+steps:
+  - label: "Merge group"
+    command: echo "$(git show HEAD -s --format=fuller --no-color)"| buildkite-agent meta-data set "buildkite:git:commit" "$$BUILDKITE_COMMIT $$BUILDKITE_MESSAGE"
+    plugins:
+      - github.com/thedyrt/skip-checkout-buildkite-plugin#v0.1.1:

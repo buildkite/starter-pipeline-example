@@ -1,0 +1,7 @@
+steps:
+  - name: ":go::robot_face: Lint"
+    key: lint
+    command: ./src/set_go.sh
+    plugins:
+      - docker#v5.9.0:
+          image: "golang:1.22"

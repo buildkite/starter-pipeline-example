@@ -1,0 +1,18 @@
+steps:
+
+  - label: 1st step
+    command: echo "hello"
+
+  - label: 2st step
+    key: 2
+    command: exit -1
+  
+  - block: "Release"
+    key: 3
+    depends_on: 2
+    prompt: "check dependency"
+    blocked_state: failed
+  
+  - label: 3rd step
+    depends_on: 3
+    command: echo "hi"

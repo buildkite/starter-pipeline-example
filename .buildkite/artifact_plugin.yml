@@ -1,0 +1,12 @@
+steps:
+  - label: ":test multi line:"
+    command: ./src/create_artifact.sh
+    plugins:
+      - artifacts#v1.9.2:
+          upload: "./testr/revisions1/foo1.txt"
+          ignore-missing: false  
+
+  - command: "download"
+    plugins:
+      - artifacts#v1.9.2:
+          download: "./testr/revisions1/foo1.txt"

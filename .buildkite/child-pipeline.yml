@@ -1,0 +1,35 @@
+---
+steps:
+- label: "TARGET_CLUSTER: ${TARGET_CLUSTER} and buildkite-agent meta-data get selected_cluster"
+  key: cd
+  command: echo "cd"
+
+- command: echo "-> Start of concurrency gate"
+  concurrency_group: gate
+  concurrency: 1
+  key: start-gate
+  depends_on: "cd"
+
+- wait:
+
+- label: ":rocket: trigger  ci"
+  command: echo "cd"
+  key: cd-gate
+  depends_on: start-gate
+
+- label: ":rocket: trigger  cd"
+  command: sleep 10
+  parallelism: 1
+  key: cd-trigger
+  depends_on: "cd-gate"
+
+- wait:
+
+- label: ":rocket: trigger  ci end gate"
+  command: echo "End of concurrency gate <--"
+  concurrency_group: gate
+  concurrency: 1
+  key: end-gate
+
+- command: echo "This and subsequent steps run independently"
+  depends_on: "end-gate"

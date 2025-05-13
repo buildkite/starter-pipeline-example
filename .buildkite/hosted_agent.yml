@@ -1,0 +1,4 @@
+steps:
+- label: testing hosted agent
+  command: ./src/hosted_secret.sh
+  key: step1

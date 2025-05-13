@@ -1,0 +1,21 @@
+steps: 
+   - block: "Release"
+     prompt: "Fill out the details for release"
+     fields: 
+       - text: "Release Name"
+         key: "release-name"
+         hint: "Think of a cool name for this release"
+       - text: "Changelog"
+         key: "release-notes"
+         required: false
+         hint: "List of what's changed in this release"
+       - select: "Type"
+         key: "release-type"
+         default: "beta"
+         options:
+         - label: "Beta"
+           value: "beta"
+         - label: "Stable"
+           value: "stable"
+   - command: ./src/release.sh
+     label: ":rocket:"

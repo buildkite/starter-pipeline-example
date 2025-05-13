@@ -1,0 +1,22 @@
+---
+steps:
+
+- key: dd_key_test_one
+  label: step_1
+  command: echo "hi"
+  key: one
+  env:
+    $TEST_ENV_CMD: "True"
+  notify:
+    - if: "build.branch == \"main\" && build.state != 'failing' && build.state != 'failed' && build.state != 'canceling' && build.state != 'canceled'"
+      slack:
+        message: ":large_green_circle: [data] Production Deploy Starting"
+        channels:
+        - "#data-test"
+- key: dd_key_test_two
+  depends_on: 
+  label: step_2
+  command: buildkite-agent meta-data set "dd_tags.key" dd_key_test_two
+- key: dd_key_test_three
+  label: step_3
+  command: buildkite-agent meta-data set "dd_tags.key" dd_key_test_three

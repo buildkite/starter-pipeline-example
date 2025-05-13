@@ -1,0 +1,10 @@
+---
+steps:
+  - command: echo "Running ci "
+    key: ci
+    command: sleep 1
+
+  - label: ":rocket: trigger  cd"
+    trigger: child-pipeline
+    key: cd-trigger
+    depends_on: "ci"

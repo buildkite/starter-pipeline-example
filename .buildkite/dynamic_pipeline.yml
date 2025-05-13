@@ -1,0 +1,4 @@
+steps: 
+  - label: Upload
+    key: step1
+    command: .buildkite/dynamic_pipeline.sh | buildkite-agent pipeline upload

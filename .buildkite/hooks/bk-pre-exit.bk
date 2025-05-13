@@ -1,0 +1,25 @@
+#!/bin/bash
+set -euo pipefail
+
+echo "pre-exit hook, running"
+
+
+pwd
+ls
+
+
+
+cd src
+
+ls
+
+
+echo "running cleanup script $BUILDKITE_STEP_KEY.sh"
+
+chmod +x ./$BUILDKITE_STEP_KEY.sh
+
+./$BUILDKITE_STEP_KEY.sh
+
+
+
+echo "script called"

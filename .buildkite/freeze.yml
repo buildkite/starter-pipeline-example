@@ -1,0 +1,22 @@
+steps:
+- label: Verify if freezed
+  command: echo "testing freeze $FREEZE"
+  key: "step1"
+
+- wait: ~
+  continue_on_failure: true
+  
+- label: Should we freeze?
+  command: |
+      if [ $FREEZE == true ]; then
+         buildkite-agent annotate "Pipeline is currently under freeze, please contact your team!!"
+         cat <<- YAML | buildkite-agent pipeline upload 
+         
+         steps:
+            - block: ":rocket: Currently under freeze"
+              branches: main
+      YAML
+      fi
+
+- label: Done
+  command: echo "done"

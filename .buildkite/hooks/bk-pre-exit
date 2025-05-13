@@ -1,0 +1,11 @@
+#!/bin/bash
+set -euo pipefail
+
+echo "pre-exit hook, searching for artifact"
+
+
+if [ "$BUILDKITE_LABEL" == ":test multi line:" ]; then
+
+    buildkite-agent artifact search testr/revisions1/*
+
+fi

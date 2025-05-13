@@ -1,0 +1,10 @@
+
+steps:
+  - label: "Terraform Plan"
+    key: "plan"
+    command: ./src/plan.sh
+
+  - label: "Terraform Apply"  
+    depends_on: "plan"
+    command: ./src/apply.sh
+

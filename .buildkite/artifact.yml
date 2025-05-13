@@ -1,0 +1,22 @@
+steps: 
+  - label: Test Upload
+    key: upload
+    command: buildkite-agent artifact upload "artifact.txt"
+    env:
+      BUILDKITE_ARTIFACT_UPLOAD_DESTINATION: "s3://priyak-test-bucket/$BUILDKITE_BUILD_NUMBER/"
+      BUILDKITE_S3_ACL: "private"
+      BUILDKITE_S3_ACCESS_URL: "https://s3.console.aws.amazon.com/s3/buckets/priyak-test-bucket/"
+      BUILDKITE_S3_DEFAULT_REGION: "ap-southeast-2"
+  
+  - label: Upload
+    key: download
+    depends_on: upload
+    command: buildkite-agent artifact download "artifact.txt" .
+    env:
+      BUILDKITE_ARTIFACT_UPLOAD_DESTINATION: "s3://priyak-test-bucket/$BUILDKITE_BUILD_NUMBER/"
+      BUILDKITE_S3_ACL: "private"
+      BUILDKITE_S3_ACCESS_URL: "https://s3.console.aws.amazon.com/s3/buckets/priyak-test-bucket/"
+      BUILDKITE_S3_DEFAULT_REGION: "ap-southeast-2"
+
+
+

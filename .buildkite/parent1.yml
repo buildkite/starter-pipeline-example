@@ -1,0 +1,20 @@
+steps:
+- label: "step 1"
+  key: step1
+  command: echo "hello world"
+
+- label: "step 2 "
+  key: step2
+  command: echo "hello world"
+
+- label: "step 3"
+  key: step3
+  trigger: child1
+
+
+- label: dependent
+  depends_on: 
+    - step1
+    - step2
+    - step3
+  command: echo "done"

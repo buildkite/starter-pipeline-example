@@ -1,0 +1,31 @@
+
+steps:
+
+  
+  - block: "unblock step one"
+    key: one
+
+  - label: ":step 1:"
+    command: echo "hi"
+    depends_on: one
+
+  
+  - block: "unblock step two"
+    key: two
+    depends_on: 
+
+  - label: ":step 2:"
+    command: echo "hi"
+    depends_on: two
+
+  
+  - block: "unblock step three"
+    key: three
+    depends_on: 
+
+  - label: ":step 3:"
+    command: echo "hi"
+    depends_on: three
+
+
+

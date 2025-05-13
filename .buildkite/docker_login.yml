@@ -1,0 +1,5 @@
+steps:
+  - command: echo "hello"
+    plugins:
+      - docker-login#v3.0.0:
+          password-env: MY_DOCKER_LOGIN_PASSWORD

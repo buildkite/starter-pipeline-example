@@ -1,0 +1,9 @@
+steps:
+- label: Deploy to testing
+  command: exit 0
+
+- block: "Deploy to production"
+  blocked_state: "failed"
+
+- label: Deploy to production
+  command: exit 0

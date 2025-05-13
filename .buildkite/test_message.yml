@@ -1,0 +1,5 @@
+steps:
+  - label: "checking commit message"
+    env:
+      PG-API-KEY: "123456"
+    command: echo "$$PG-API-KEY" 

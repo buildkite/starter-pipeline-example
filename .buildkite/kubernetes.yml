@@ -1,0 +1,14 @@
+steps:
+- label: Hello World!
+  agents:
+    queue: kubernetes
+  plugins:
+  - kubernetes:
+      podSpec:
+        containers:
+        - image: alpine:latest
+          command: [sh, -c]
+          name: helloworld
+          args:
+          - "'echo Hello World!' && sleep 30"
+        serviceAccountName: test

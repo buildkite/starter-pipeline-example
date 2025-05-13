@@ -1,0 +1,8 @@
+#!/bin/bash
+set -euo pipefail
+
+echo "post checkout from repo"
+
+export BUILDKITE_PLUGIN_DOCKER_LOGIN_USERNAME="priya.tk88@gmail.com"
+
+echo "user name is $BUILDKITE_PLUGIN_DOCKER_LOGIN_USERNAME"

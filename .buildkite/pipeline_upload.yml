@@ -1,0 +1,5 @@
+
+steps:
+  - key: eslint-ts-v3
+    label: ":eslint: Lint: TS (v3)"
+    command: echo "hi"
