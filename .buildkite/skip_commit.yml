@@ -4,6 +4,6 @@ steps:
     key: skip-commit
     command: echo "Checking if commit should be skipped! " 
     plugins:
-      - skip-build-for-commit#pre-checkout:
-          read_build_token_env: "SKIP_BUILD_API_TOKEN"
+      - skip-build-for-commit#SUP-3711/add-plugin:
+          build_token_env: "SKIP_BUILD_API_TOKEN"
 
