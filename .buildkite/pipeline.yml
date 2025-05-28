@@ -1,12 +1,6 @@
 steps:
-  - command: buildkite-agent pipeline upload .buildkite/block-step.yml
-    label: ":pipeline_upload: Pipeline Upload"
-
-steps:
   - block: ":incoming_envelope: generate"
     prompt: "Should we generate some numbers?"
-
-steps:
   - block: "Release"
     prompt: "Fill out the details for release"
     fields:
