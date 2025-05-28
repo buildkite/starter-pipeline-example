@@ -1,6 +1,7 @@
 steps:
   - block: ":incoming_envelope: generate"
     prompt: "Should we generate some numbers?"
+
   - block: "Release"
     prompt: "Fill out the details for release"
     fields:
@@ -19,5 +20,6 @@ steps:
             value: "beta"
           - label: "Stable"
             value: "stable"
-  - command: release.sh
-    label: ":rocket:"
+            
+  - command: curl -sSL https://raw.githubusercontent.com/buildkite/block-step-example/refs/heads/main/release.sh | bash
+    label: ":rocket: Release"
