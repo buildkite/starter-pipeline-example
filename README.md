@@ -16,3 +16,4 @@ With Buildkite setup, you can quickly create a new pipeline by selecting **Add t
 
 See [LICENSE](LICENSE) (MIT)
 Triggered full pipeline build with both steps.
+Testing Buildkite pipeline integration
