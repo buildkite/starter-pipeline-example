@@ -1,3 +1,6 @@
+env:
+   preferred_language: "Java"
+   
 steps:
   - input: "How many Deployment will you do?"
     key: "check-input"
