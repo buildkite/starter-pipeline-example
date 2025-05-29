@@ -1,6 +1,6 @@
 env:
    preferred_language: "Java"
-   
+
 steps:
   - input: "How many Deployment will you do?"
     key: "check-input"
@@ -27,4 +27,6 @@ steps:
 
   - command: src/test.sh
     label: "Display step"
+    env:
+      preferred_language: "Ruby"
     depends_on: check-input
