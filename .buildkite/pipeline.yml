@@ -1,29 +1,27 @@
 steps:
-  - block: ":incoming_envelope: generate"
-    prompt: "Should we generate some numbers?"
-
-  - block: "Release"
-    prompt: "Fill out the details for release"
+  - input: "How many Deployment will you do?"
+    key: "check-input"
     fields:
-      - text: "Release Name"
-        key: "release-name"
-        hint: "Think of a cool name for this release"
-      - text: "Changelog"
-        key: "release-notes"
-        required: false
-        hint: "List of what's changed in this release"
-      - select: "Type"
-        key: "release-type"
-        default: "beta"
+      - select: "Number of Deployements"
+        key: "deployment-total"
         options:
-          - label: "Beta"
-            value: "beta"
-          - label: "Stable"
-            value: "stable"
-            
-  - command: |
-      echo "🚀 Processing release..."
-      echo "Release Name: $(buildkite-agent meta-data get release-name)"
-      echo "Release Type: $(buildkite-agent meta-data get release-type)"
-      echo "🎉 Done!"
-    label: ":rocket: Release"
+          - label: "1"
+            value: "1"
+          - label: "2"
+            value: "2"
+
+      - select: "Which Environments?"
+        key: "environment-type"
+        hint: "Which release stream does this belong in? :fork:"
+        multiple: true
+        options:
+          - label: "Staging"
+            value: "staging"
+          - label: "Production"
+            value: "prod"
+          - label: "Dev"
+            value: "dev"
+
+  - command: src/test.sh
+    label: "Display step"
+    depends_on: check-input
