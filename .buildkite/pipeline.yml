@@ -21,5 +21,9 @@ steps:
           - label: "Stable"
             value: "stable"
             
-  - command: curl -sSL https://raw.githubusercontent.com/buildkite/block-step-example/refs/heads/main/release.sh | bash
+  - command: |
+      echo "🚀 Processing release..."
+      echo "Release Name: $(buildkite-agent meta-data get release-name)"
+      echo "Release Type: $(buildkite-agent meta-data get release-type)"
+      echo "🎉 Done!"
     label: ":rocket: Release"
