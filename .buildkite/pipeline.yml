@@ -1,13 +1,12 @@
 steps:
-  - label: ":ubuntu:"
-    command: ./src/show_environment.sh
+  - label: ":ballot_box_with_ballot:"
+    command: ./src/generate-and-store-number.sh
     plugins:
       - docker#v3.5.0:
           image: "ubuntu:latest"
+          volumes:
+            - "/opt/homebrew/bin/buildkite-agent:/usr/local/bin/buildkite-agent"
+          environment:
+            - "BUILDKITE_AGENT_ACCESS_TOKEN"
           propagate-environment: true
-  - label: ":ski: missing bash"
-    command: ./src/show_environment.sh
-    plugins:
-      - docker#v3.5.0:
-          image: "alpine:latest"
-          propagate-environment: true
+          mount-buildkite-agent: true
