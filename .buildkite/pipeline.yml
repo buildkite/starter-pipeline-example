@@ -1,5 +1,5 @@
 env:
-   preferred_language: "Java"
+   preferred_language: "Python"
 
 steps:
   - input: "How many Deployment will you do?"
