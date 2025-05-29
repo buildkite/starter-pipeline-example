@@ -1,32 +1,3 @@
-env:
-   preferred_language: "Python"
-
 steps:
-  - input: "How many Deployment will you do?"
-    key: "check-input"
-    fields:
-      - select: "Number of Deployements"
-        key: "deployment-total"
-        options:
-          - label: "1"
-            value: "1"
-          - label: "2"
-            value: "2"
-
-      - select: "Which Environments?"
-        key: "environment-type"
-        hint: "Which release stream does this belong in? :fork:"
-        multiple: true
-        options:
-          - label: "Staging"
-            value: "staging"
-          - label: "Production"
-            value: "prod"
-          - label: "Dev"
-            value: "dev"
-
-  - command: src/test.sh
-    label: "Display step"
-    # env:
-    #   preferred_language: "Ruby"
-    depends_on: check-input
+  - label: "Print value of STEPS_COUNT"
+    command: echo $STEPS_COUNT
