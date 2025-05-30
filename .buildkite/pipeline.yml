@@ -1,6 +1,6 @@
 steps:
   - label: ":ballot_box_with_ballot:"
-    command: ./src/generate-and-store-number.sh
+    command: ./src/generate-and-store-numbers.sh
     agents:
       queue: linux
     plugins:
