@@ -6,4 +6,5 @@ steps:
     plugins:
       - docker#v3.5.0:
           image: "ubuntu:latest"
+          propagate-environment: true
           mount-buildkite-agent: true
