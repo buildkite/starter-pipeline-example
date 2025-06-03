@@ -1,0 +1,23 @@
+#!/bin/bash
+# .buildkite/hooks/pre-command
+
+set -euo pipefail
+
+echo "--- :gear: Setting up environment variables"
+
+# Set custom variable based on some logic
+if [[ "${BUILDKITE_BRANCH}" == "main" ]]; then
+    export CUSTOM_VAR="true"
+    echo "Setting CUSTOM_VAR=true for main branch"
+else
+    export CUSTOM_VAR="false"
+    echo "Setting CUSTOM_VAR=false for non-main branch"
+fi
+
+# Set internal build number using Buildkite variables
+export INTERNAL_BUILD_NUMBER="${BUILDKITE_BUILD_NUMBER}-${BUILDKITE_BRANCH}"
+echo "Set INTERNAL_BUILD_NUMBER=${INTERNAL_BUILD_NUMBER}"
+
+# Export for future steps
+echo "CUSTOM_VAR=${CUSTOM_VAR}" >> $BUILDKITE_ENV_FILE
+echo "INTERNAL_BUILD_NUMBER=${INTERNAL_BUILD_NUMBER}" >> $BUILDKITE_ENV_FILE
