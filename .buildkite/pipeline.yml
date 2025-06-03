@@ -1,13 +1,24 @@
+agents:
+  queue: "mac"
+  
 steps:
-  - label: ":camera_with_flash:"
-    command: "ls -al images/*.png"
-    artifact_paths:
-      - "./images/*.png"
-    key: upload
-    agents:
-      queue: "default"    
-  - label: ":package:"
-    command: "./src/inspect-image-artifacts.sh"
-    depends_on: upload
-    agents:
-      queue: "mac"
+  - label: ":construction_worker: Build"
+    command: echo "Build the rocket"
+    key: build
+
+  - label: ":white_check_mark: Test"
+    command: echo "Test the rocket"
+    key: test
+    depends_on: build
+
+  - label: ":rocket: Deploy"
+    command: |
+      echo "Launch the rocket"
+      cat .buildkite/annotation.md | buildkite-agent annotate --style "success"
+    key: deploy
+    depends_on: test
+
+  - label: ":arrow_right: Triggering post-deploy verifier"
+    command: |
+      ./post-release-trigger.sh
+    depends_on: deploy
