@@ -1,6 +1,4 @@
-agents:
-      queue: "mac"  
-      
+    
 steps:
   - label: "Show Kernel Version"
     command: "uname -a"
@@ -8,6 +6,8 @@ steps:
       - docker-compose:
           run: app
           config: ./src/docker-compose.yml  
+    agents:
+      queue: "mac"  
 
   - label: "Passing Environment Variables"
     plugins:
@@ -17,6 +17,8 @@ steps:
           config: ./src/docker-compose.yml
           env:
             - BUILDKITE_BUILD_NUMBER
+    agents:
+      queue: "default"  
 
   - label: "Mount Volume and List Files"
     command: "ls -lash /src"
