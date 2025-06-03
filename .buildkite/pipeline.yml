@@ -1,7 +1,9 @@
-agents:
-  queue: "mac"
-  
 steps:
+  - command: aws sts get-caller-identity
+    plugins:
+      - aws-assume-role-with-web-identity#v1.4.0:
+          role-arn:   arn:aws:iam::097340723131:role/ola-sts-assume-role
+
   - label: ":construction_worker: Build"
     command: echo "Build the rocket"
     key: build
