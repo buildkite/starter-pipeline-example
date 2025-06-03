@@ -6,8 +6,7 @@ steps:
       TAG=$(echo "newtag-double-dollar")
       buildkite-agent meta-data set "TAG" "$$TAG"
       buildkite-agent step update "label" ":docker: TAG=$$TAG"
-    agents:
-      queue: ${BUILD_AGENT}
+  
 
   # Test 2: Using \$ escaping  
   - label: ":docker: configure image tag (test \\$)"
@@ -16,8 +15,7 @@ steps:
       TAG=$(echo "newtag-backslash")
       buildkite-agent meta-data set "TAG" "\$TAG"
       buildkite-agent step update "label" ":docker: TAG=\$TAG"
-    agents:
-      queue: ${BUILD_AGENT}
+  
 
   # Test 3: Original single-line format with \$ (should fail)
   - label: ":docker: configure image tag (original format)"
@@ -26,5 +24,4 @@ steps:
       - TAG=$(echo "newtag-original")
       - buildkite-agent meta-data set "TAG" "\${TAG}"
       - buildkite-agent step update "label" ":docker: TAG=\${TAG}"
-    agents:
-      queue: ${BUILD_AGENT}
+    
