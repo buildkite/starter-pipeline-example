@@ -1,0 +1,25 @@
+steps:
+  - label: "Show Kernel Version"
+    command: "uname -a"
+    plugins:
+      - docker-compose:
+          run: app
+          config: ./src/docker-compose.yml
+
+  - label: "Passing Environment Variables"
+    plugins:
+      - docker-compose:
+          run: cowsay
+          command: ["Build Number: ", "$BUILDKITE_BUILD_NUMBER"]
+          config: ./src/docker-compose.yml
+          env:
+            - BUILDKITE_BUILD_NUMBER
+
+  - label: "Mount Volume and List Files"
+    command: "ls -lash /src"
+    plugins:
+      - docker-compose:
+          run: app
+          config: ./src/docker-compose.yml
+          volumes:
+            - "./src:/src"
