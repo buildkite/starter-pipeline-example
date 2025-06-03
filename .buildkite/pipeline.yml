@@ -1,26 +1,23 @@
 steps:
-  - command: aws sts get-caller-identity
-    plugins:
-      - aws-assume-role-with-web-identity#v1.4.0:
-          role-arn:   arn:aws:iam::097340723131:role/ola-sts-assume-role
+  - label: "default"
+    command: buildkite-agent annotate "default" --context "default"
 
-  - label: ":construction_worker: Build"
-    command: echo "Build the rocket"
-    key: build
+  - wait:
 
-  - label: ":white_check_mark: Test"
-    command: echo "Test the rocket"
-    key: test
-    depends_on: build
+  - label: "info"
+    command: buildkite-agent annotate "info" --style "info" --context "info"
 
-  - label: ":rocket: Deploy"
-    command: |
-      echo "Launch the rocket"
-      cat .buildkite/annotation.md | buildkite-agent annotate --style "success"
-    key: deploy
-    depends_on: test
+  - wait:
 
-  - label: ":arrow_right: Triggering post-deploy verifier"
-    command: |
-      ./src/post-release-trigger.sh
-    depends_on: deploy
+  - label: "success"
+    command: buildkite-agent annotate "success" --style "success" --context "success"
+
+  - wait:
+
+  - label: "warning"
+    command: buildkite-agent annotate "warning" --style "warning" --context "warning"
+
+  - wait:
+
+  - label: "error"
+    command: buildkite-agent annotate "error" --style "error" --context "error"
