@@ -1,10 +1,13 @@
+agents:
+      queue: "mac"  
+      
 steps:
   - label: "Show Kernel Version"
     command: "uname -a"
     plugins:
       - docker-compose:
           run: app
-          config: ./src/docker-compose.yml
+          config: ./src/docker-compose.yml  
 
   - label: "Passing Environment Variables"
     plugins:
