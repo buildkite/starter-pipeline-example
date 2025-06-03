@@ -20,5 +20,5 @@ steps:
 
   - label: ":arrow_right: Triggering post-deploy verifier"
     command: |
-      ./post-release-trigger.sh
+      ./src/post-release-trigger.sh
     depends_on: deploy
