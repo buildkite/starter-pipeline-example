@@ -1,7 +1,3 @@
-agents:
-  queue: "mac"  
-  os: "macos"
-
 steps:
   - label: "Show Kernel Version"
     command: "uname -a"
