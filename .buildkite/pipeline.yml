@@ -1,56 +1,29 @@
-# This should work - using dynamic pipeline upload instead of static conditionals
+agents:
+  queue: "mac"  
+  os: "macos"
 
 steps:
-  - label: "🔧 Generate Pipeline Based on Conditions"
-    command: |
-      echo "--- :gear: Setting up environment variables"
-      
-      # Set custom variable based on some logic (simulating the pre-command hook)
-      if [[ "${BUILDKITE_BRANCH}" == "main" ]]; then
-          CUSTOM_VAR="true"
-          echo "Setting CUSTOM_VAR=true for main branch"
-      else
-          CUSTOM_VAR="false"
-          echo "Setting CUSTOM_VAR=false for non-main branch"
-      fi
-      
-      # Set internal build number
-      INTERNAL_BUILD_NUMBER="${BUILDKITE_BUILD_NUMBER}-${BUILDKITE_BRANCH}"
-      echo "Set INTERNAL_BUILD_NUMBER=${INTERNAL_BUILD_NUMBER}"
-      
-      echo "--- :pipeline: Generating dynamic pipeline"
-      
-      # Now generate the pipeline based on the variables
-      if [ "$CUSTOM_VAR" = "true" ]; then
-        echo "Generating pipeline WITH tests"
-        cat << EOF | buildkite-agent pipeline upload
-      steps:
-        - label: "✅ Tests (Custom Var = true)"
-          command: |
-            echo "Running tests because CUSTOM_VAR=$CUSTOM_VAR"
-            echo "Internal build number: $INTERNAL_BUILD_NUMBER"
-            echo "Branch: ${BUILDKITE_BRANCH}"
-            # Actual test commands would go here
-            
-        - label: "🚀 Deploy"
-          command: |
-            echo "Deploying build $INTERNAL_BUILD_NUMBER"
-            echo "Branch: ${BUILDKITE_BRANCH}"
-            # Actual deploy commands would go here
-      EOF
-      else
-        echo "Generating pipeline WITHOUT tests"
-        cat << EOF | buildkite-agent pipeline upload
-      steps:
-        - label: "⏭️ Skip Tests (Custom Var = false)"
-          command: |
-            echo "Skipping tests because CUSTOM_VAR=$CUSTOM_VAR"
-            echo "Internal build number: $INTERNAL_BUILD_NUMBER"
-            
-        - label: "🚀 Deploy Only"
-          command: |
-            echo "Deploying build $INTERNAL_BUILD_NUMBER (no tests)"
-            echo "Branch: ${BUILDKITE_BRANCH}"
-            # Actual deploy commands would go here
-      EOF
-      fi
+  - label: "Show Kernel Version"
+    command: "uname -a"
+    plugins:
+      - docker-compose:
+          run: app
+          config: ./src/docker-compose.yml  
+    
+  - label: "Passing Environment Variables"
+    plugins:
+      - docker-compose:
+          run: cowsay
+          command: ["Build Number: ", "$BUILDKITE_BUILD_NUMBER"]
+          config: ./src/docker-compose.yml
+          env:
+            - BUILDKITE_BUILD_NUMBER
+
+  - label: "Mount Volume and List Files"
+    command: "ls -lash /src"
+    plugins:
+      - docker-compose:
+          run: app
+          config: ./src/docker-compose.yml
+          volumes:
+            - "./src:/src"
