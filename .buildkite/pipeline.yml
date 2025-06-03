@@ -1,27 +1,24 @@
+# This should replicate the user's error:
+# "buildkite variable interpolation not being allowed"
+
+# Simulating what the user is trying to do:
+# 1. Use variables set in pre-command hooks for conditionals
+# 2. Use BUILDKITE_BUILD_NUMBER and BUILDKITE_BRANCH in YAML
+
 steps:
-  # Test 1: Using $$ escaping
-  - label: ":docker: configure image tag (test $$)"
-    key: tag-create-double-dollar
-    command: |
-      TAG=$(echo "newtag-double-dollar")
-      buildkite-agent meta-data set "TAG" "$$TAG"
-      buildkite-agent step update "label" ":docker: TAG=$$TAG"
-  
-
-  # Test 2: Using \$ escaping  
-  - label: ":docker: configure image tag (test \\$)"
-    key: tag-create-backslash
-    command: |
-      TAG=$(echo "newtag-backslash")
-      buildkite-agent meta-data set "TAG" "\$TAG"
-      buildkite-agent step update "label" ":docker: TAG=\$TAG"
-  
-
-  # Test 3: Original single-line format with \$ (should fail)
-  - label: ":docker: configure image tag (original format)"
-    key: tag-create-original
-    commands:
-      - TAG=$(echo "newtag-original")
-      - buildkite-agent meta-data set "TAG" "\${TAG}"
-      - buildkite-agent step update "label" ":docker: TAG=\${TAG}"
+  # First, let's try to use hook-set variables in conditionals
+  - label: "Test Step with Hook Variable Conditional"
+    command: "echo 'Running tests'"
+    if: "${CUSTOM_VAR} == 'true'"  # This should cause the error
     
+  # Also try using BUILDKITE variables in ways that might not be allowed
+  - label: "Build ${BUILDKITE_BUILD_NUMBER} on ${BUILDKITE_BRANCH}"
+    command: |
+      echo "Internal build number: ${BUILDKITE_BUILD_NUMBER}-${BUILDKITE_BRANCH}"
+      echo "Custom var: ${CUSTOM_VAR}"
+    if: "${BUILDKITE_BRANCH} == 'main'"  # This might also cause issues
+
+  # Try using variables in skip conditions
+  - label: "Skip based on custom var"
+    command: "echo 'This should be skipped'"
+    skip: "${CUSTOM_VAR} != 'true'"  # Another potential error point
