@@ -7,17 +7,16 @@ steps:
     agents:
       queue: "mac"
 
-  - label: "Test Failure Job"
+  - label: "Another Success Job"
     command: |
-      echo "This job will fail"
+      echo "This job will also succeed"
       sleep 5
-      echo "About to fail..."
-      exit 1
+      echo "All good!"
     agents:
       queue: "mac"
 
 notify:
-  - email: "michael.omoge@buildkite.com"
+  - email: "your-email@example.com"
     if: build.state == "passed"
-  - email: "michael.omoge@buildkite.com"
+  - email: "your-email@example.com"
     if: build.state == "failed"
