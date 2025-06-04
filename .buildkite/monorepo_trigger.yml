@@ -21,4 +21,5 @@ steps:
                   build:
                     message: "Triggering child pipeline"
                     env:
-                      - tool="axe"
+                      tool="axe"
+
