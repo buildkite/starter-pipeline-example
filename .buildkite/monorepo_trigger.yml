@@ -19,5 +19,6 @@ steps:
               config:
                 trigger: "child-pipeline"
                   build:
+                    message: "Triggering child pipeline"
                     env:
                       - tool="axe"
