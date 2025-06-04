@@ -2,3 +2,5 @@ steps:
   - label: "surprise"
     command: |
       buildkite-agent annotate "<img class="emoji" title="one-does-not-simply" alt=":one-does-not-simply:" src="https://buildkiteassets.com/emojis/img-buildkite-64/one-does-not-simply.png" draggable="false" /> One does not simply annotate." --style "success"
+    agents:
+      queue: "mac"
