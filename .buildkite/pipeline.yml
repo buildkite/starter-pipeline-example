@@ -4,19 +4,21 @@ steps:
       buildkite-agent annotate "<img class=\"emoji\" title=\"one-does-not-simply\" alt=\":one-does-not-simply:\" src=\"https://buildkiteassets.com/emojis/img-buildkite-64/one-does-not-simply.png\" draggable=\"false\" /> One does not simply annotate." --style "success"
     agents:
       queue: "mac"
-  - label: "testing"
+  
+  # Single step with parallelism to create 5 parallel jobs
+  - label: "Long Running Test %n"
     command: |
-      echo "Starting long-running test job at $(date)"
-      echo "Job PID: $"
-      echo "Agent PID: $BUILDKITE_AGENT_PID"
-      echo "You can now terminate the agent to test graceful shutdown behavior"
+      echo "Parallel job starting at $(date)"
+      echo "Job Index: $BUILDKITE_PARALLEL_JOB (of $BUILDKITE_PARALLEL_JOB_COUNT total)"
+      echo "Job ID: $BUILDKITE_JOB_ID"
+      echo "Job PID: $$, Agent PID: $BUILDKITE_AGENT_PID"
       
-      # Simple loop that runs for a long time
       i=1
       while true; do
-        echo "[$i] Still running at $(date) - terminate the agent when ready"
+        echo "[Job $BUILDKITE_PARALLEL_JOB - Iteration $i] Running at $(date) - ready for SIGTERM testing"
         sleep 30
         i=$((i+1))
       done
     agents:
       queue: "mac"
+    parallelism: 5
