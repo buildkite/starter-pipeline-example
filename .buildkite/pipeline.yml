@@ -18,8 +18,6 @@ steps:
 
 notify:
   - email: "michael.omoge@buildkite.com"
-    message: "🎉 Build passed successfully! All tests completed."
     if: build.state == "passed"
   - email: "michael.omoge@buildkite.com"
-    message: "🚨 Build failed - immediate attention required!"
     if: build.state == "failed"
