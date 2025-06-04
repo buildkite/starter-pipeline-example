@@ -18,5 +18,6 @@ steps:
                 - .buildkite/
               config:
                 trigger: "child-pipeline"
-                env:
-                  tool: "Axe"
+                  build:
+                    env:
+                      - tool="axe"
