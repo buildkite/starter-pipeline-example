@@ -15,5 +15,3 @@ steps:
     agents:
       queue: "mac"
 
-notify:
-- slack: "@michael.omoge"
