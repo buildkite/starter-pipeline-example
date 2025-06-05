@@ -16,4 +16,4 @@ steps:
       queue: "mac"
 
 notify:
-- slack: "#all-testing"
+- slack: "@olamoge"
