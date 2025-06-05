@@ -16,4 +16,8 @@ steps:
       queue: "mac"
 
 notify:
-- slack: "@michael.omoge"
+- if: build.branch == pipeline.default_branch || build.message =~ /enable slack/
+  slack: 
+    channels:
+      - "#my-channel"
+
