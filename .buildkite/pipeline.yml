@@ -16,7 +16,4 @@ steps:
       queue: "mac"
 
 notify:
-  - email: "michael.omoge@buildkite.com"
-    if: build.state == "passed"
-  - email: "michael.omoge@buildkite.com"
-    if: build.state == "failed"
+- slack: "@omoge"
