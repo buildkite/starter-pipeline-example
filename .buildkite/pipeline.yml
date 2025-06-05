@@ -16,4 +16,4 @@ steps:
       queue: "mac"
 
 notify:
-- slack: "@olamoge"
+- slack: "@michael.omoge"
