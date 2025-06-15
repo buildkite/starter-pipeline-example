@@ -1,0 +1,38 @@
+steps:
+  - command: echo "Running unit tests"
+    key: unit-tests
+
+
+  - command: echo "Running tests in parellel"
+    concurrency_group: start
+    concurrency: 3
+    key: start
+
+  - command: echo "--> Start of concurrency gate"
+    concurrency_group: gate
+    concurrency: 1
+    key: start-gate
+    depends_on: unit-tests
+
+  - wait
+
+  - command: echo "Running deployment to staging environment" >> log.txt
+    key: stage-deploy
+    depends_on: start-gate
+
+  - command: echo "Running e2e tests after the deployment " >> log${BUILDKITE_AGENT_NAME}.txt
+    parallelism: 3
+    depends_on: [stage-deploy]
+    key: e2e
+    artifact_paths: 
+      - "./*"
+
+  - wait
+
+  - command: echo "End of concurrency gate <--"
+    concurrency_group: gate
+    concurrency: 1
+    key: end-gate
+
+  - command: echo "This and subsequent steps run independently"
+    depends_on: end-gate

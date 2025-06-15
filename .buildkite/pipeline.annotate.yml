@@ -1,0 +1,3 @@
+steps:
+  - label: Annotate another job
+    command: "buildkite-agent annotate --job 0196f094-8464-4d8b-831b-975faf18651e 'All tests passed! :your-emoji: like 🚀'"

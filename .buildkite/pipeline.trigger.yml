@@ -1,0 +1,3 @@
+steps:
+  - label: "Setup and Trigger Failure"
+    command: "./src/trigger.sh"

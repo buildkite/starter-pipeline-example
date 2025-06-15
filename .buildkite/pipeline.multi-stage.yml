@@ -1,0 +1,22 @@
+env:
+  DOCKER_REGISTRY: "097340723131.dkr.ecr.ap-southeast-2.amazonaws.com"
+  IMAGE_REPO: "build-cache/jykingston/nutrien"
+steps:
+  - label: ":docker: Build image for Unit tests"
+    plugins:
+      - ecr#v2.9.0:
+          login: true
+          region: "ap-southeast-2"
+      - docker-compose#v5.5.0:
+          build: app
+          config: docker-compose.yml
+          propagate-environment: true
+          push:
+            - app:${DOCKER_REGISTRY}/${IMAGE_REPO}:testing
+          cache-from:
+            - "app:type=registry,ref=${DOCKER_REGISTRY}/${IMAGE_REPO}:cache"
+          builder:
+            name: container
+            use: true
+            create: true
+            driver: docker-container

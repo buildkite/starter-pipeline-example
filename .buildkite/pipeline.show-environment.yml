@@ -1,0 +1,17 @@
+steps:
+  - label: ":ubuntu: Ubuntu"
+    command: ./src/show-environment.sh
+    parallelism: 3
+    plugins:
+      - docker#v3.5.0:
+          image: "ubuntu:latest"
+          propagate-environment: true
+          mount-buildkite-agent: true
+
+  - label: "Alpine!:"
+    command: ./src/show-environment.sh
+    plugins:
+      - docker#v3.5.0:
+          image: "alpine:latest"
+          propagate-environment: true
+  - trigger: metadata-starter

@@ -1,16 +1,12 @@
+notify:
+  # https://buildkite.pagerduty.com/service-directory/PANYOJ2/integrations
+  - pagerduty_change_event: "136898a15c734aeea4b61fdb6111111"
+    if: "build.state == 'failed'"
+env:
+  PAGER_DUTY_API_KEY_SECRET: "136898a15c734aeea4b61fdb6111111"
+  
 steps:
-  - label: ":construction_worker: Build"
-    command: echo "Build the rocket"
-    key: build
-
-  - label: ":white_check_mark: Test"
-    command: echo "Test the rocket"
-    key: test
-    depends_on: build
-
-  - label: ":rocket: Deploy"
-    command: |
-      echo "Launch the rocket"
-      cat .buildkite/annotation.md | buildkite-agent annotate --style "success"
-    key: deploy
-    depends_on: test
+  - label: "Did it redact?"
+    command: "echo $PAGER_DUTY_API_KEY_SECRET"
+  - name: "After end, sleep"
+    command: "echo 'Do something else'; sleep 10"

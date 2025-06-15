@@ -1,0 +1,3 @@
+steps:
+  - label: Pipeline skip
+    command: echo "Skipping pipeline"

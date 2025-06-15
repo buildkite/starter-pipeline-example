@@ -1,0 +1,17 @@
+steps:
+  - key: "np-check-formatting"
+    label: "NP | Check go formatting"
+    plugins:
+    - docker#v5.9.0:
+        image: "golang:1.22.1"
+        shell:
+        - "/bin/bash"
+        - "-c"
+        network: "host"
+        volumes:
+        - "/var/run/docker.sock:/var/run/docker.sock"
+        - ""
+        environment:
+        - "GO_BIN_PATH=/go/bin"
+    commands: "set -euo pipefail\ncd ../workdir; ls -la; cd .src\n\necho --- Checking for formatting\nmake format\nif ! git diff --exit-code; then\n    echo \"Go files were not formatted correctly. Please commit the changes after running make format.\"\n    git diff  # Show the differences\n    exit 1\nelse\n    echo \"All Go files are formatted correctly.\"\nfi\n"
+

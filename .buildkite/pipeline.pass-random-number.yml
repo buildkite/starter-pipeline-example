@@ -1,0 +1,12 @@
+steps:
+  - label: ":ballot_box_with_ballot:"
+    command: ./src/generate-and-store-number.sh
+    parallelism: 5
+
+  - wait
+
+  - label: ":desktop_computer:"
+    command: ./src/fetch-and-display-number.sh
+
+  - label: "Annotate"
+    command: buildkite-agent annotate 'Super cool new fancy its just a build' --context 'ctx-default' --job 0192697a-32da-4192-a448-4dac82c2f438
