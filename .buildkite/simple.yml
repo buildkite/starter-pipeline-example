@@ -3,7 +3,7 @@ steps:
 
 - key: dd_key_test_one
   label: step_1
-  command: echo "hello"
+  command: echo "hello world"
   key: one
   env:
     $TEST_ENV_CMD: "True"
